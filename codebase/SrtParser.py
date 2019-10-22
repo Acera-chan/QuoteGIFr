@@ -1,70 +1,86 @@
+import io
+
 def main():
     # demonstrate usage of SrtFile class
-    fileLoc = ""
-    while fileLoc != "0":
-        fileLoc = input("Enter the full path to SRT you would like to parse: ")
-        if fileLoc == "0":
+    fileloc = ""
+    while fileloc != "0":
+        fileloc = input("Enter the full path to SRT you would like to parse: ")
+        outfileloc = r'G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\MEDIA\test.srt'
+        if fileloc == "0":
             break
         try:
-            srtTest = SrtFile(fileLoc)
-            lineNum = int(input("What line would you like to see: "))
-            print("Line " + str(lineNum) + "\n"
-                  + srtTest.getLineStartTime(lineNum) + "-->"
-                  + srtTest.getLineEndTime(lineNum) + "\n"
-                  + srtTest.getLineCaption(lineNum))
+            srttest = SrtFile(fileloc)
+            srttest.writeSRT(outfileloc)
+            linenum = int(input("What line would you like to see: "))
+            print("Line " + str(linenum) + "\n"
+                  + srttest.getLineStartTime(linenum) + "-->"
+                  + srttest.getLineEndTime(linenum) + "\n"
+                  + srttest.getLineCaption(linenum))
         except FileNotFoundError as fnf_error:
             print(fnf_error)
 
 
 class SrtFile:
-    def __init__(self, srtFileDescriptor):
-        inList = []
+    def __init__(self, srtfiledescriptor):
+        inlist = []
         try:
-            inFile = open(srtFileDescriptor, 'r', newline="\r\n")
-            inList = inFile.readlines()
-            inFile.close()
+            infile = io.open(srtfiledescriptor, 'r', newline="\r\n", encoding='utf-8')
+            inlist = infile.readlines()
+            infile.close()
             self.lines = {}
-            lineNum = 0
-            timeString = ""
-            captionStrings = []
+            linenum = 0
+            timestring = ""
+            captionstrings = []
 
-            intLineTracker = 1
-            for line in inList:
-                if intLineTracker == 1:
-                    lineNum = int(line.encode('utf-8').decode('ascii', 'ignore'))  # removes formatting characters from line number
-                elif intLineTracker == 2:
-                    timeString = line
+            intlinetracker = 1
+            for line in inlist:
+                if intlinetracker == 1:
+                    linenum = int(line.encode('utf-8').decode('ascii', 'ignore'))  # removes formatting characters from line number
+                elif intlinetracker == 2:
+                    timestring = line
                 elif line == '\r\n':
                     # push into SrtLine object
-                    if captionStrings:  # check if anything to push
-                        srtObject = SrtLine(timeString, captionStrings)
-                        self.lines[lineNum] = srtObject
+                    if captionstrings:  # check if anything to push
+                        srtobject = SrtLine(timestring, captionstrings)
+                        self.lines[linenum] = srtobject
 
                         # reset collector
-                        captionStrings = []
-                        intLineTracker = 0
+                        captionstrings = []
+                        intlinetracker = 0
                 else:  # add caption to list
-                    captionStrings.append(line)
-                intLineTracker = intLineTracker + 1
+                    #do some parsing to avoid long lines
+                    if len(line) > 42:
+                        linebreak = line.rfind(' ', 0, 42)
+                        line = line[:linebreak] + '\n' + line[linebreak+1:]  # linebreak+1 removes space between words
+                    captionstrings.append(line)
+                intlinetracker = intlinetracker + 1
         except FileNotFoundError as fnf_error:
             raise fnf_error
 
-    def getLineCaption(self, lineNum):
-        return self.lines[lineNum].getCaptions()
+    def getLineCaption(self, linenum):
+        return self.lines[linenum].getCaptions()
 
-    def getLineStartTime(self, lineNum):
-        return self.lines[lineNum].getStartTime()
+    def getLineStartTime(self, linenum):
+        return self.lines[linenum].getStartTime()
 
-    def getLineEndTime(self, lineNum):
-        return self.lines[lineNum].getEndTime()
-
+    def getLineEndTime(self, linenum):
+        return self.lines[linenum].getEndTime()
+        
+    def writeSRT(self, fileloc):
+        with io.open(fileloc, 'w', newline='', encoding='utf-8') as f:
+            f.write('\ufeff')  # add utf-8 BOM to beginning of file
+            for linenum in self.lines:
+                outstring = '{}\r\n{} --> {}\r\n{}\r\n'.format(linenum, self.getLineStartTime(linenum),
+                self.getLineEndTime(linenum),
+                self.getLineCaption(linenum))
+                f.write(outstring)
 
 class SrtLine:
-    def __init__(self, timeString, captionStrings):
-        self.startTime = SrtTime(timeString[0:12])  # extract first time stamp
-        self.endTime = SrtTime(timeString[17:29])  # extract second time stamp
+    def __init__(self, timestring, captionstrings):
+        self.startTime = SrtTime(timestring[0:12])  # extract first time stamp
+        self.endTime = SrtTime(timestring[17:29])  # extract second time stamp
         self.captions = []
-        for line in captionStrings:
+        for line in captionstrings:
             self.captions.append(line)  # add each caption line to object
 
     def getCaptions(self):
@@ -112,7 +128,7 @@ class SrtTime:
         self.normalize()
 
     def toString(self):
-        output = "%02d" % self.hours + ":" + "%02d" % self.minutes + ":" + "%02d" % self.seconds + "," + "%003d" % self.milliseconds
+        output = "{:0>2d}:{:0>2d}:{:0>2d},{:0>3d}".format(self.hours, self.minutes, self.seconds, self.milliseconds)
         return output
 
 

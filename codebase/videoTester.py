@@ -17,11 +17,11 @@ API_KEY = 'iTmKRrpWJUCpn6nWMSIp42gmkXA6hpfh'
 #the four variables defined below are what gifEngine needs
 def main():
     
-    starttime = "00:04:49,934"
-    endtime = "00:05:01,500"
+    starttime =  "00:07:21,754"
+    endtime = "00:07:31,029"
     # set these to appropriate locations, eventually will be passed in from db
-    videofileloc = r"G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\MEDIA\GS_S01E01.mp4"
-    strfileloc = r"G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\MEDIA\GS_S01E01.srt"
+    videofileloc = r"G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\MEDIA\An Ideal Husband 1947.mp4"
+    strfileloc = r"G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\MEDIA\An Ideal Husband 1947.srt"
     outfile = r"G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\outfile"
     
     outfileloc = (outfile+"\GIF_{}.gif").format(datetime.now().strftime("%H_%M_%S"))
@@ -45,7 +45,7 @@ def gifEngine(starttime, endtime, videofileloc, srtfileloc, outfileloc):
     sub = SubtitlesClip(srtfileloc, generator).set_position(("center", "bottom"), relative=True)	
     composite = CompositeVideoClip([video, sub])
     composite = composite.subclip(starttime, endtime)
-    composite.write_gif(outfileloc, program='ffmpeg', opt='palettegen')
+    composite.write_gif(outfileloc, program='ImageMagick', opt='optimizeplus')
     
     return (outfileloc)	
     

@@ -146,7 +146,7 @@ def file_to_subtitles(filename):
     Only works for '.srt' format for the moment.
     """
 
-    with open(filename,'r') as f:
+    with open(filename,'r', encoding='utf8') as f:
         lines = f.readlines()
 
     times_texts = []
@@ -160,5 +160,5 @@ def file_to_subtitles(filename):
             times_texts.append((current_times, current_text.strip('\n')))
             current_times, current_text = None, ""
         elif current_times is not None:
-            current_text = current_text + line.encode('ascii', errors="ignore").decode()
+            current_text = current_text + line
     return times_texts
