@@ -7,16 +7,12 @@ from giphypop import Giphy  # necessary for uploading to giphy.com
 import webbrowser  # used to open giphy.com URL after upload
 from datetime import datetime  # used to create filename of gif in this context
 
-
-#globals that will need defined for gifEngine to work
-
-
 #Giphy api_key, required for uploads
 API_KEY = 'iTmKRrpWJUCpn6nWMSIp42gmkXA6hpfh'
 
-#the four variables defined below are what gifEngine needs
+
 def main():
-    
+    #the five variables defined below are what gifEngine needs
     starttime =  "00:07:21,754"
     endtime = "00:07:31,029"
     # set these to appropriate locations, eventually will be passed in from db
@@ -45,7 +41,7 @@ def gifEngine(starttime, endtime, videofileloc, srtfileloc, outfileloc):
     sub = SubtitlesClip(srtfileloc, generator).set_position(("center", "bottom"), relative=True)	
     composite = CompositeVideoClip([video, sub])
     composite = composite.subclip(starttime, endtime)
-    composite.write_gif(outfileloc, program='ImageMagick', opt='optimizeplus')
+    composite.write_gif(outfileloc, program='ffmpeg', opt='palettegen')  # using new palettegen opt
     
     return (outfileloc)	
     

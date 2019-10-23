@@ -5,7 +5,7 @@ def main():
     fileloc = ""
     while fileloc != "0":
         fileloc = input("Enter the full path to SRT you would like to parse: ")
-        outfileloc = r'G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\MEDIA\test.srt'
+        outfileloc = r'G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\MEDIA\An Ideal Husband 1947.srt'
         if fileloc == "0":
             break
         try:
@@ -49,8 +49,8 @@ class SrtFile:
                         intlinetracker = 0
                 else:  # add caption to list
                     #do some parsing to avoid long lines
-                    if len(line) > 42:
-                        linebreak = line.rfind(' ', 0, 42)
+                    if len(line) > 44:
+                        linebreak = line.find(' ', int(len(line)/2), len(line)-1)
                         line = line[:linebreak] + '\n' + line[linebreak+1:]  # linebreak+1 removes space between words
                     captionstrings.append(line)
                 intlinetracker = intlinetracker + 1
