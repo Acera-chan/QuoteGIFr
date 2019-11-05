@@ -1,4 +1,6 @@
 # a simple script for shifting the timestamps in an SRT by timeDiff seconds
+from quotegipher import SrtTime
+
 def main():
     inFile = open(r"C:\Users\rkwiley\Downloads\media\An Ideal Husband 1947.srt", 'r', newline="\r\n")
     outFile = open(r"C:\Users\rkwiley\Downloads\media\An Ideal Husband 1947 - Copy.srt", 'w', newline='')
@@ -51,54 +53,6 @@ def main():
         intLine = intLine + 1
 
     outFile.close()
-
-
-class SrtTime:
-    def __init__(self, stringTime):
-        self.hours = int(stringTime[0:2])
-        self.minutes = int(stringTime[3:5])
-        self.seconds = int(stringTime[6:8])
-        self.milliseconds = int(stringTime[9:12])
-
-    def normalize(self):
-        if (self.milliseconds > 999):
-            self.milliseconds = self.milliseconds - 1000
-            self.seconds = self.seconds + 1
-        if (self.seconds > 59):
-            self.seconds = self.seconds - 60
-            self.minutes = self.minutes + 1
-        if (self.minutes > 59):
-            self.minutes = self.minutes - 60
-            self.hours = self.hours + 1
-        if (self.milliseconds < 0):
-            self.milliseconds = self.milliseconds + 1000
-            self.seconds = self.seconds - 1
-        if (self.seconds < 0):
-            self.seconds = self.seconds + 60
-            self.minutes = self.minutes - 1
-
-    def adjustTime(self, newSeconds, newMilliseconds):
-        self.milliseconds = self.milliseconds + newMilliseconds
-        self.normalize()
-        self.seconds = self.seconds + newSeconds
-        self.normalize()
-
-    def hours(newHours):
-        self.hours = newHours
-
-    def minutes(newMinutes):
-        self.minutes = newMinutes
-
-    def seconds(newSeconds):
-        self.seconds = newSeconds
-
-    def milliseconds(newMilliseconds):
-        self.milliseconds = newMilliseconds
-
-    def tostring(self):
-        output = "%02d" % self.hours + ":" + "%02d" % self.minutes + ":" + "%02d" % self.seconds + "," + "%003d" % self.milliseconds
-        return output
-
 
 if '__main__' == __name__:
     main()
