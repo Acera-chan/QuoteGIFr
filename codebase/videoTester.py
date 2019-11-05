@@ -1,12 +1,7 @@
-#requires the installation of moviepy and imagemagick
-from moviepy.video.tools.subtitles import SubtitlesClip
-from moviepy.editor import*
-import subprocess
-
 from giphypop import Giphy  # necessary for uploading to giphy.com
 import webbrowser  # used to open giphy.com URL after upload
 from datetime import datetime  # used to create filename of gif in this context
-
+from quotegipher import gifEngine
 #Giphy api_key, required for uploads
 API_KEY = 'iTmKRrpWJUCpn6nWMSIp42gmkXA6hpfh'
 
@@ -29,21 +24,6 @@ def main():
     response = giphyobj.upload("Get Smart, Cone of Silence", outfileloc, username="QuoteGIFr")
 
     webbrowser.open_new(str(response))  # shows us the GIF on giphy.com
-    
-
-#creates a gif from the videoFileLoc with subtitles from strFileLoc 
-#returns the location of the GIF as a string
-def gifEngine(starttime, endtime, videofileloc, srtfileloc, outfileloc):
-    
-    #creating the initial GIF
-    generator = lambda txt: TextClip(txt, font='Impact', fontsize=28, color='white')
-    video = VideoFileClip(videofileloc)
-    sub = SubtitlesClip(srtfileloc, generator).set_position(("center", "bottom"), relative=True)	
-    composite = CompositeVideoClip([video, sub])
-    composite = composite.subclip(starttime, endtime)
-    composite.write_gif(outfileloc, program='ffmpeg', opt='palettegen')  # using new palettegen opt
-    
-    return (outfileloc)	
     
 if '__main__' == __name__:
     main()
