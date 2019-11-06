@@ -1,0 +1,34 @@
+/* 
+    Author: Eli Hughes
+    Date Last Modified: 10/8/19
+    Purpose: Stylesheet for html in the QuoteGIF project
+*/
+
+body {
+    margin:0;
+    padding:0;
+}
+
+#film_select {
+    position:absolute;
+    width:100vw;
+}
+
+#film_select_form {
+    position:relative;
+    left:25vw;
+    
+}
+#film_select_field {
+    text-align:center;
+    font-size:3ex;
+    width:50vw;
+}
+
+#submit_btn {
+    position:relative;
+    text-align:center;
+    width:10vw;
+    left:20vw;
+    font-size:3ex;
+}

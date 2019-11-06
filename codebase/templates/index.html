@@ -1,0 +1,42 @@
+<!--
+    Author: Eli Hughes
+    Date Last Modified: 10/8/2019
+    Purpose: This html is unique to these routes: '/' and '/film'.
+             Extends 'layout.html'
+-->
+
+{% extends 'layout.html' %}
+{% block content %}
+<form id='filmSearchForm' method = 'POST'>
+    {{ form.hidden_tag() }}
+    <fieldset>
+        <!---->
+        {% if result %}
+            <legend>Search For Another Film</legend>
+        {% else %}
+            <legend>Start By Searching For a Film</legend>
+        {% endif %}
+        {{ form.movieName.label() }}
+        {{ form.movieName() }}
+    </fieldset>
+    {{ form.submit() }}
+</form>
+{% if filmRequest %}
+    <table id='movieResultLinks'>
+        {% for result in filmForms %}
+            <tr>
+                <td>
+                    <form method='POST' action={{ url_for('quotepage') }}>
+                        <fieldset>
+                            <legend>Here are the movies we found for <i>"{{ filmRequest }}"</i>:</legend>
+                            {{ result[0] }}
+                            {{ result[1].movieName() }}
+                            {{ result[1].submit() }}
+                        </fieldset>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>       
+{% endif %}
+{% endblock content %}

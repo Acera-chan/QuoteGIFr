@@ -1,0 +1,31 @@
+<!-- 
+    Author: Eli Hughes
+    Date Last Modified: 10/8/19
+    Purpose: A base template for localizing repeated html and inlaid jinja
+             scripting throughout the QuoteGIFr project. This template is
+             meant to be extended by other .html files (currently extended
+             by 'index.html', and 'quote.html').
+-->>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <!--Testing Stylesheet
+        <link rel='stylesheet' type='text/css' href= {{ url_for('static', filename='style.css') }}>
+        -->
+        {% if title %}
+            <title>QuoteGIFr-{{ title }} </title>
+        {% else %}
+            <title>QuoteGIFr</title>
+        {% endif %}
+    </head>
+    <body>
+        <header id='logo'>
+            QuoteGIFr
+        </header>
+        {% block content %}{% endblock content%}
+    </body>
+</html>
