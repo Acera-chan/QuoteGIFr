@@ -15,7 +15,13 @@ def gifEngine(starttime, endtime, videofileloc, srtfileloc, outfileloc):
     composite = composite.subclip(starttime, endtime)
     composite.write_gif(outfileloc, program='ffmpeg', opt='palettegen')  # using new palettegen opt
     
-    return (outfileloc)	
+    return (outfileloc)
+
+#  writes a single frame of a video file (at timecode) to outfileloc
+def getImage(timecode, videofileloc, outfileloc):
+    video = VideoFileClip(videofileloc)
+    video.save_frame(outfileloc, timecode)    
+    return(outfileloc)
 
 #  Class for parsing and manipulating text stored in an SRT format
 class SrtFile:

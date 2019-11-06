@@ -1,7 +1,7 @@
 from giphypop import Giphy  # necessary for uploading to giphy.com
 import webbrowser  # used to open giphy.com URL after upload
 from datetime import datetime  # used to create filename of gif in this context
-from quotegipher import gifEngine
+from quotegipher import gifEngine, getImage
 #Giphy api_key, required for uploads
 API_KEY = 'iTmKRrpWJUCpn6nWMSIp42gmkXA6hpfh'
 
@@ -15,9 +15,11 @@ def main():
     strfileloc = r"G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\MEDIA\An Ideal Husband 1947.srt"
     outfile = r"G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\outfile"
     
-    outfileloc = (outfile+"\GIF_{}.gif").format(datetime.now().strftime("%H_%M_%S"))
-
-    print(gifEngine(starttime, endtime, videofileloc, strfileloc,  outfileloc) + " rendered successfully")
+    gif_outfileloc = (outfile+"\GIF_{}.gif").format(datetime.now().strftime("%H_%M_%S"))
+    jpg_outfileloc = (outfile+"\JPG_{}.jpg").format(datetime.now().strftime("%H_%M_%S"))
+    
+    print(getImage(starttime, videofileloc, jpg_outfileloc) + " frame created.")
+    print(gifEngine(starttime, endtime, videofileloc, strfileloc,  gif_outfileloc) + " rendered successfully")
     print("Uploading to giphy.com...")
     
     giphyobj = Giphy(API_KEY)
