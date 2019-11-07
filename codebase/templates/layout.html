@@ -16,6 +16,8 @@
         <!--Testing Stylesheet
         <link rel='stylesheet' type='text/css' href= {{ url_for('static', filename='style.css') }}>
         -->
+
+        <!-- if title passed in with render_template, modify the title -->
         {% if title %}
             <title>QuoteGIFr-{{ title }} </title>
         {% else %}
@@ -26,6 +28,7 @@
         <header id='logo'>
             QuoteGIFr
         </header>
+        <!-- block which 'index.html' and 'quote.html' will extend -->
         {% block content %}{% endblock content%}
     </body>
 </html>
