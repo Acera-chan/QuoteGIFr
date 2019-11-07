@@ -1,13 +1,14 @@
 <!--
     Author: Eli Hughes
-    Date Last Modified: 10/8/2019
     Purpose: This html is unique to these routes: '/quote'.
              Extends 'layout.html'
+             Used for searching for and selecting quotes
 -->
 
 {% extends 'layout.html' %}
 {% block content %}
-<form method='POST'>
+<!-- Form used for searching for a quote -->
+<form id='quoteSearchForm' method='POST'>
     {{ form.hidden_tag() }}
     <fieldset>
         <legend>Now Search for a Quote in "{{ movieName }}"</legend>
@@ -17,21 +18,36 @@
     {{ form.submit() }}
 </form>
 
+<!-- Check to see if 'quoteRequest' was passed in with render_template (aka the user has searched
+     for a quote) -->
 {% if quoteRequest %}
-    {% for result in quoteForms %}
-        <tr>
-            <td>
-                <form method='POST' action='{{ url_for('generateGIFpage') }}'>
-                    <fieldset>
-                        <legend>Here are the quotes we found for "{{ quoteRequest }}"</legend>
-                        {{ result[0] }}
-                        {{ result[1].movieName() }}
-                        {{ result[1].quote() }}
-                        {{ result[1].submit() }}
-                    </fieldset>
-                </form>
-            </td>
-        </tr>
-    {% endfor %}
+    <!-- Table which contains all of the quote select forms -->
+    <table id='quoteSelectForms'>
+        <!-- Potentially many quote select forms -->
+        {% for result in quoteForms %}
+            <tr>
+                <td>
+                    <!-- Form used for selecting a quote -->
+                    <form class='quoteSelectForm' method='POST' action='{{ url_for('generateGIFpage') }}'>
+                        <fieldset>
+                            <legend>Here are the quotes we found for "{{ quoteRequest }}"</legend>
+                            <!-- result[0] = quote displayed-->
+                            {{ result[0] }}
+
+                            <!-- result[1].movieName() = hidden form input which stores name of movie from which 
+                                 the quote comes from  -->
+                            {{ result[1].movieName() }}
+
+                            <!-- result[1].quote() == hidden form input which stores the actual quote -->
+                            {{ result[1].quote() }}
+
+                            <!-- result[1].submit() = submit button -->
+                            {{ result[1].submit() }}
+                        </fieldset>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endif %}
 {% endblock content %}

@@ -7,6 +7,7 @@
 
 {% extends 'layout.html' %}
 {% block content %}
+<!-- Form used for searching for a film -->
 <form id='filmSearchForm' method = 'POST'>
     {{ form.hidden_tag() }}
     <fieldset>
@@ -21,16 +22,27 @@
     </fieldset>
     {{ form.submit() }}
 </form>
+
+<!-- Check to see if 'filmRequest' was passed in with render_template (aka the user has searched
+     for a film) -->
 {% if filmRequest %}
-    <table id='movieResultLinks'>
+    <!-- Table which contains all of the film select forms -->
+    <table id='filmSelectForms'>
+        <!-- Potentially many film select forms -->
         {% for result in filmForms %}
             <tr>
                 <td>
-                    <form method='POST' action={{ url_for('quotepage') }}>
+                    <!-- Form used for selecting a film -->
+                    <form class='filmSelectForm' method='POST' action={{ url_for('quotepage') }}>
                         <fieldset>
                             <legend>Here are the movies we found for <i>"{{ filmRequest }}"</i>:</legend>
+                            <!-- result[0] = movie name displayed -->
                             {{ result[0] }}
+
+                            <!-- result[1].movieName() = hidden form which stores the name of a movie -->
                             {{ result[1].movieName() }}
+
+                            <!-- result[1].submit() = submit button -->
                             {{ result[1].submit() }}
                         </fieldset>
                     </form>
