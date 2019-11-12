@@ -1,14 +1,70 @@
 /* 
-    Author: Eli Hughes
-    Date Last Modified: 10/8/19
+    Author: Eli Hughes & Aaron Nathanson
+    Date Last Modified: 11/12/19
     Purpose: Stylesheet for html in the QuoteGIF project
 */
-
-body {
-    margin:0;
-    padding:0;
+header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: #C9C9C9;
+    font-family: "Corbel Light";
+    padding-top: 5vh;
+    width: 100vw;
+    height: 10vh;
+    text-align: center;
+    font-size: xx-large;
 }
 
+img {
+    height: 10vw;
+    width: 15vh;;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+
+}
+body {
+    position: fixed;
+    
+    
+    background-image: url("CSS Background2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+footer{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 15vh;
+}
+table{
+    position: fixed;
+    top: 40vh;
+    left: 40%;
+}
+#filmSearchForm{
+    position: fixed;
+    top: 40vh;
+    left: 40%;
+}
+#filmSelectForms{
+    position: fixed;
+    top: 55vh;
+    left: 40%;
+}
+#quoteSearchForm{
+    position: fixed;
+    top: 40vh;
+    left: 40%;
+}
+#quoteSelectForms{
+    position: fixed;
+    top: 55vh;
+    left: 40%;
+}
 #film_select {
     position:absolute;
     width:100vw;
