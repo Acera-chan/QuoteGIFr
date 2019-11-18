@@ -1,6 +1,6 @@
 #requires the installation of moviepy and imagemagick
 from moviepy.video.tools.subtitles import SubtitlesClip
-from moviepy.editor import*
+from moviepy.editor import TextClip, VideoFileClip, CompositeVideoClip
 import io
 
 #  Creates a gif from the videoFileLoc with subtitles from strFileLoc 
@@ -93,8 +93,6 @@ class SrtLine:
             self.captions.append(line)  # add each caption line to object
 
     def getCaptions(self):
-        # unsure if we want to make one string with newlines,
-        # or return list of caption strings(current)
         seperator = ""  # this goes between each item in the outString
         outString = seperator.join(self.captions)  # joins items in list as a single string
         return outString

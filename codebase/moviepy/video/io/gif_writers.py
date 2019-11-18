@@ -177,7 +177,8 @@ def write_gif(clip, filename, fps=None, program= 'ImageMagick',
         
         if opt == 'palettegen':
             proc1 = sp.Popen(cmd1+[ '-pix_fmt', ('rgba' if withmask else 'rgb24'),
-                            '-filter_complex', "[0:v] fps=%d,scale=w=480:h=-1,split [a][b];[a] palettegen [p];[b][p] paletteuse"%fps,
+                            '-filter_complex', "[0:v] fps=%d,scale=w=%d:h=-1,"
+                            "split [a][b];[a] palettegen [p];[b][p] paletteuse"%(fps, clip.w),
                             filename], **popen_params)
         else:
             proc1 = sp.Popen(cmd1+[ '-pix_fmt', ('rgba' if withmask else 'rgb24'),

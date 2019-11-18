@@ -11,21 +11,22 @@ def main():
     starttime =  "00:07:21,754"
     endtime = "00:07:31,029"
     # set these to appropriate locations, eventually will be passed in from db
-    videofileloc = r"G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\MEDIA\An Ideal Husband 1947.mp4"
-    strfileloc = r"G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\MEDIA\An Ideal Husband 1947.srt"
-    outfile = r"G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\outfile"
+    videofileloc = r"C:\Users\Konrad\Desktop\MagickTests\media\An Ideal Husband 1947.mp4"
+    strfileloc = r"C:\Users\Konrad\Desktop\MagickTests\media\An Ideal Husband 1947.srt"
+    outfile = r"C:\Users\Konrad\Desktop\MagickTests\outfile"
     
-    gif_outfileloc = (outfile+"\GIF_{}.gif").format(datetime.now().strftime("%H_%M_%S"))
-    jpg_outfileloc = (outfile+"\JPG_{}.jpg").format(datetime.now().strftime("%H_%M_%S"))
+    gif_outfileloc = (outfile+r"\GIF_{}.gif").format(datetime.now().strftime("%H_%M_%S"))
+    jpg_outfileloc = (outfile+r"\JPG_{}.jpg").format(datetime.now().strftime("%H_%M_%S"))
     
     print(getImage(starttime, videofileloc, jpg_outfileloc) + " frame created.")
     print(gifEngine(starttime, endtime, videofileloc, strfileloc,  gif_outfileloc) + " rendered successfully")
-    print("Uploading to giphy.com...")
+    #print("Uploading to giphy.com...")
     
-    giphyobj = Giphy(API_KEY)
-    response = giphyobj.upload("Get Smart, Cone of Silence", outfileloc, username="QuoteGIFr")
+    #giphyobj = Giphy(API_KEY)
+    #response (below) is the URL for our giphy upload
+    #response = giphyobj.upload(["An Ideal Husband, Never marry a man with a future"], gif_outfileloc, username="QuoteGIFr")
 
-    webbrowser.open_new(str(response))  # shows us the GIF on giphy.com
+    #webbrowser.open_new(str(response))  # shows us the GIF on giphy.com
     
 if '__main__' == __name__:
     main()
