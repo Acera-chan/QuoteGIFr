@@ -1,10 +1,10 @@
-#requires the installation of moviepy and imagemagick
+# requires the installation of moviepy and imagemagick
 from moviepy.video.tools.subtitles import SubtitlesClip
 from moviepy.editor import TextClip, VideoFileClip, CompositeVideoClip
 import io
 
 
-#  Creates a gif from the videoFileLoc with subtitles from strFileLoc 
+#  Creates a gif from the videoFileLoc with subtitles from strFileLoc
 #  Returns the location of the GIF as a string
 def gifEngine(starttime, endtime, videofileloc, srtfileloc, outfileloc):
 
@@ -29,7 +29,7 @@ def getImage(timecode, videofileloc, outfileloc):
 #  Class for parsing and manipulating text stored in an SRT format
 class SrtFile:
 
-    #  Constructor reads in an SRT and builds 
+    #  Constructor reads in an SRT and builds
     #  class structures from SRT fields
     def __init__(self, srtfiledescriptor):
         inlist = []
