@@ -27,21 +27,21 @@ class Movie(db.Model):
     __tablename__ = 'movie'
     uid = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
-    # timestamps = db.relationship("Timestamp", backref='movie')
+    timestamps = db.relationship("Timestamp", back_populates='movie')
 
 
 class Timestamp(db.Model):
-    def __init__(self, uid, subtitle, timestamp):
+    def __init__(self, uid, subtitle, timestamp, movieid):
         self.uid = uid
         self.subtitle = subtitle
         self.timestamp = timestamp
-        # self.movieid = movieid
+        self.movieid = movieid
     __tablename__ = 'timestamp'
     uid = db.Column(db.Integer, primary_key=True)
     subtitle = db.Column(db.String(100), nullable=False)
     timestamp = db.Column(db.String(100), nullable=False)
-    # movieid = db.Column(db.Integer, db.ForeignKey('movie.uid'))
-    # movie = db.relationship(Movie, backref='movie')
+    movieid = db.Column(db.Integer, db.ForeignKey('movie.uid'))
+    movie = db.relationship("Movie", back_populates='movie')
 
 
 app.run
@@ -56,7 +56,7 @@ for tuple_item in srt_list:
         subtitle = srt_file.getLineCaption(key)
         start_time = srt_file.getLineStartTime(key)
         end_time = srt_file.getLineEndTime(key)
-        timestamp = Timestamp(key, subtitle, start_time + ":" + end_time)
+        timestamp = Timestamp(key, subtitle, start_time+":"+end_time, movieid)
         db.session.add(timestamp)
 
 results = db.session.query(Timestamp).filter_by(uid=1)
