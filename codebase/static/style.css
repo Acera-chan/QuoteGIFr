@@ -7,13 +7,20 @@ header {
     position: fixed;
     top: 0px;
     left: 0px;
-    background-color: #C9C9C9;
-    font-family: "Corbel Light";
+    background-color: #341881;
+    font-family: "Varela Round";
+    color: #ffffee;
     padding-top: 5vh;
     width: 100vw;
     height: 10vh;
     text-align: center;
-    font-size: xx-large;
+    vertical-align: 10%;
+    font-size: 8vh;
+
+    background-image: url("QGIFr.png");
+    background-size: contain;
+    background-position: center left;
+    background-repeat: no-repeat;
 }
 
 img {
@@ -25,13 +32,14 @@ img {
 
 }
 body {
-    position: fixed;
-    
-    
-    background-image: url("CSS Background2.jpg");
+    position: fixed;    
+    font-family: "Corbel";
+    font-size: large;
+    color: #ffffee;
+    /*background-image: url("CSS Background2.jpg"); */
+    background-color: #8968e3;
     background-repeat: no-repeat;
     background-size: cover;
-    
 }
 footer{
     position: fixed;
@@ -45,10 +53,27 @@ table{
     top: 40vh;
     left: 40%;
 }
+.lbl_movieName{
+    float:inline-start;
+    padding: .5em;
+}
+.tb_movieName{
+    border: none;
+    padding: .5em;
+    width: 25vw;
+}
+.btn_movieName{
+    float:inline-end;
+    border: none;
+    padding: .5em;
+    cursor: pointer;
+    width: 25vw;
+}
 #filmSearchForm{
     position: fixed;
     top: 40vh;
-    left: 40%;
+    left: 20vw;
+    right: 20vw;
 }
 #filmSelectForms{
     position: fixed;

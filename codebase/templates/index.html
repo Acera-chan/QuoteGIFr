@@ -17,10 +17,10 @@
         {% else %}
             <legend>Start By Searching For a Film</legend>
         {% endif %}
-        {{ form.movieName.label() }}
-        {{ form.movieName() }}
-    </fieldset>
-    {{ form.submit() }}
+        {{ form.movieName.label(class='lbl_movieName') }}
+        {{ form.movieName(class='tb_movieName') }}
+        {{ form.submit(class='btn_movieName') }}
+    </fieldset>    
 </form>
 
 <!-- Check to see if 'filmRequest' was passed in with render_template (aka the user has searched
