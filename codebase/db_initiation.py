@@ -14,8 +14,7 @@ path_dressed_to_kill = path_media_folder + "Dressed to Kill 1946"
 path_the_last_time = path_media_folder + "The Last Time I Saw Paris 1954"
 # The objects below contain methods
 # to extract all data from the associated
-# SRT files
-
+# SRT files. >>>Replace or assign movieid's to the tuples.<<<
 srt_list = [(movieid_an_ideal, SrtFile(path_an_ideal_husband + ".srt"))]
 srt_list.append(movieid_dressed, (SrtFile(path_dressed_to_kill + ".srt")))
 srt_list.append(movieid_the_last, SrtFile(path_the_last_time + ".srt")))
