@@ -6,10 +6,18 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://***REMOVED***:***REMOVED***@quotegifr-db2.csj8xbgbgcjk.us-east-1.rds.amazonaws.com:3306/quotegifrdb'
 db = SQLAlchemy(app)
 
-media_folder = '\\PATH\\TO\\MEDIA\\'
-srt_an_ideal_husband = SrtFile(media_folder + "An Ideal Husband 1947.srt")
-srt_dressed_to_kill = SrtFile(media_folder + "Dressed to Kill 1946.srt")
-srt_the_last_time = SrtFile(media_folder + "The Last Time I Saw Paris 1954.srt")
+path_media_folder = '\\PATH\\TO\\MEDIA\\'
+# Add ".mp4" or ".srt" to the strings below
+# to point to the associated files
+path_an_ideal_husband = path_media_folder + "An Ideal Husband 1947"
+path_dressed_to_kill = path_media_folder + "Dressed to Kill 1946"
+path_the_last_time = path_media_folder + "The Last Time I Saw Paris 1954"
+# The objects below contain methods
+# to extract all data from the associated
+# SRT files
+srt_an_ideal_husband = SrtFile(path_an_ideal_husband + ".srt")
+srt_dressed_to_kill = SrtFile(path_dressed_to_kill + ".srt")
+srt_the_last_time = SrtFile(path_the_last_time + ".srt")
 
 
 class Movie(db.Model):

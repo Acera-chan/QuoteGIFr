@@ -1,5 +1,6 @@
 from quotegipher import SrtFile  # Custom class for parsing and manipulating SRTs
 
+
 def main():
     # demonstrate usage of SrtFile class
     fileloc = ""
@@ -18,6 +19,7 @@ def main():
                   + srttest.getLineCaption(linenum))
         except FileNotFoundError as fnf_error:
             print(fnf_error)
+
 
 if '__main__' == __name__:
     main()
