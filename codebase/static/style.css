@@ -56,11 +56,13 @@ table{
 .lbl_movieName{
     float:inline-start;
     padding: .5em;
+    font-family: 'Corbel';
 }
 .tb_movieName{
     border: none;
     padding: .5em;
     width: 25vw;
+    font-family: 'Corbel';
 }
 .btn_movieName{
     float:inline-end;
@@ -68,6 +70,7 @@ table{
     padding: .5em;
     cursor: pointer;
     width: 25vw;
+    font-family: 'Corbel';
 }
 #filmSearchForm{
     position: fixed;
