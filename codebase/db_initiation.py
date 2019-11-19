@@ -43,7 +43,6 @@ class Timestamp(db.Model):
     movieid = db.Column(db.Integer, db.ForeignKey('movie.uid'))
     movie = db.relationship("Movie", back_populates='movie') """
 
-
 class Movie(db.Model):
     __tablename__ = 'movie'
     uid = db.Column(db.Integer, primary_key=True, nullable=False)
@@ -59,9 +58,9 @@ class Movie(db.Model):
 class Timestamp(db.Model):
     __tablename__ = 'timestamp'
     uid = db.Column(db.Integer, primary_key=True)
-    movieid = db.Column(db.Integer, nullable = False)
+    startime = db.Column(db.String(100), nullable=False)
+    endtime = db.Column(db.String(100), nullable=False)
     subtitle = db.Column(db.String(100), nullable=False)
-    timestamp = db.Column(db.String(100), nullable=False)
     # Lowercase 'm' in 'movie.id' because we're referencing the tablename 'movie', not the class 'Movie'
     movieid = db.Column(db.Integer, db.ForeignKey('movie.uid'), nullable = False)
 

@@ -1,14 +1,17 @@
 # Author: Eli Hughes
 # Purpose: Flask App for QuoteGIFr
 
+
 from flask import Flask, render_template, request, redirect, url_for
 from forms import MovieForm, QuoteForm, SelectMovieForm, SelectQuoteForm
 from flask_sqlalchemy import SQLAlchemy
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '***REMOVED***'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
+
 
 class Movie(db.Model):
     __tablename__ = 'movie'
@@ -22,19 +25,19 @@ class Movie(db.Model):
         return f"User('{self.uid}', '{self.title}')"
 
 
-
 class Timestamp(db.Model):
     __tablename__ = 'timestamp'
     uid = db.Column(db.Integer, primary_key=True)
-    movieid = db.Column(db.Integer, nullable = False)
+    startime = db.Column(db.String(100), nullable=False)
+    endtime = db.Column(db.String(100), nullable=False)
     subtitle = db.Column(db.String(100), nullable=False)
-    timestamp = db.Column(db.String(100), nullable=False)
     # Lowercase 'm' in 'movie.id' because we're referencing the tablename 'movie', not the class 'Movie'
     movieid = db.Column(db.Integer, db.ForeignKey('movie.uid'), nullable = False)
 
     # for printing out a timestamp
     def __repr__(self):
         return f"User('{self.uid}', '{self.movieid}', '{self.subtitle}', '{self.timestamp}')"
+
 
 @app.route("/", methods = ["GET", "POST"])
 @app.route("/film", methods = ["GET", "POST"])
@@ -62,6 +65,7 @@ def homepage():
 
     # if no post data (or satisfactory post data) was submitted, render the base homepage
     return render_template('index.html', form = form)
+
 
 @app.route("/quote", methods = ["GET", "POST"])
 def quotepage():
@@ -106,6 +110,7 @@ def quotepage():
     # redirect the user if they didn't select a movie from "homepage" or search for a quote on "quotepage" 
     # (ie no correct post data submitted)
     return redirect(url_for('homepage'))
+
 
 @app.route("/generate", methods = ["GET", "POST"])
 def generateGIFpage():
