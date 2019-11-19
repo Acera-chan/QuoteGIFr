@@ -3,10 +3,38 @@
 
 from flask import Flask, render_template, request, redirect, url_for
 from forms import MovieForm, QuoteForm, SelectMovieForm, SelectQuoteForm
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-
 app.config['SECRET_KEY'] = '***REMOVED***'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+db = SQLAlchemy(app)
+
+class Movie(db.Model):
+    __tablename__ = 'movie'
+    uid = db.Column(db.Integer, primary_key=True, nullable=False)
+    title = db.Column(db.String(100), nullable=False)
+    # Capital 'T' in 'Timestamp' because we're referencing the Timestamp class
+    timestamps = db.relationship('Timestamp', backref = 'movie', lazy = True)
+
+    # for printing out a movie
+    def __repr__(self):
+        return f"User('{self.uid}', '{self.title}')"
+
+
+
+class Timestamp(db.Model):
+    __tablename__ = 'timestamp'
+    uid = db.Column(db.Integer, primary_key=True)
+    movieid = db.Column(db.Integer, nullable = False)
+    subtitle = db.Column(db.String(100), nullable=False)
+    timestamp = db.Column(db.String(100), nullable=False)
+    # Lowercase 'm' in 'movie.id' because we're referencing the tablename 'movie', not the class 'Movie'
+    movieid = db.Column(db.Integer, db.ForeignKey('movie.uid'), nullable = False)
+
+    # for printing out a timestamp
+    def __repr__(self):
+        return f"User('{self.uid}', '{self.movieid}', '{self.subtitle}', '{self.timestamp}')"
 
 @app.route("/", methods = ["GET", "POST"])
 @app.route("/film", methods = ["GET", "POST"])
