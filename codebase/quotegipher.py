@@ -3,29 +3,32 @@ from moviepy.video.tools.subtitles import SubtitlesClip
 from moviepy.editor import TextClip, VideoFileClip, CompositeVideoClip
 import io
 
+
 #  Creates a gif from the videoFileLoc with subtitles from strFileLoc 
 #  Returns the location of the GIF as a string
 def gifEngine(starttime, endtime, videofileloc, srtfileloc, outfileloc):
-    
-    #creating the initial GIF
+
+    # creating the initial GIF
     generator = lambda txt: TextClip(txt, font='Impact', fontsize=28, color='white')
     video = VideoFileClip(videofileloc)
-    sub = SubtitlesClip(srtfileloc, generator).set_position(("center", "bottom"), relative=True)	
+    sub = SubtitlesClip(srtfileloc, generator).set_position(("center", "bottom"), relative=True)
     composite = CompositeVideoClip([video, sub])
     composite = composite.subclip(starttime, endtime)
     composite.write_gif(outfileloc, program='ffmpeg', opt='palettegen')  # using new palettegen opt
-    
+
     return (outfileloc)
+
 
 #  writes a single frame of a video file (at timecode) to outfileloc
 def getImage(timecode, videofileloc, outfileloc):
     video = VideoFileClip(videofileloc)
-    video.save_frame(outfileloc, timecode)    
+    video.save_frame(outfileloc, timecode)
     return(outfileloc)
+
 
 #  Class for parsing and manipulating text stored in an SRT format
 class SrtFile:
-    
+
     #  Constructor reads in an SRT and builds 
     #  class structures from SRT fields
     def __init__(self, srtfiledescriptor):
@@ -63,7 +66,7 @@ class SrtFile:
                 intlinetracker = intlinetracker + 1
         except FileNotFoundError as fnf_error:
             raise fnf_error
-    
+
     #  returns a caption (String) associated with a line number
     #  in the original SRT
     def getLineCaption(self, linenum):
@@ -74,15 +77,20 @@ class SrtFile:
 
     def getLineEndTime(self, linenum):
         return self.lines[linenum].getEndTime()
-        
+
+    def getNumLines(self):
+        return len(self.lines)
+
     def writeSRT(self, fileloc):
         with io.open(fileloc, 'w', newline='', encoding='utf-8') as f:
             f.write('\ufeff')  # add utf-8 BOM to beginning of file
             for linenum in self.lines:
-                outstring = '{}\r\n{} --> {}\r\n{}\r\n'.format(linenum, self.getLineStartTime(linenum),
-                self.getLineEndTime(linenum),
-                self.getLineCaption(linenum))
+                outstring = '{}\r\n{} --> {}\r\n{}\r\n'.format(linenum,
+                    self.getLineStartTime(linenum),
+                    self.getLineEndTime(linenum),
+                    self.getLineCaption(linenum))
                 f.write(outstring)
+
 
 class SrtLine:
     def __init__(self, timestring, captionstrings):
@@ -129,7 +137,7 @@ class SrtTime:
         if self.seconds < 0:
             self.seconds = self.seconds + 60
             self.minutes = self.minutes - 1
-            
+
     #  Adds newSeconds and newMilliseconds to current time
     #  and normalizes resulting time
     def adjustTime(self, newSeconds, newMilliseconds):
@@ -137,7 +145,7 @@ class SrtTime:
         self.normalize()
         self.seconds = self.seconds + newSeconds
         self.normalize()
-        
+
     #  Generates a string in SRT format of HH:MM:SS,mmm
     def toString(self):
         output = "{:0>2d}:{:0>2d}:{:0>2d},{:0>3d}".format(self.hours, self.minutes, self.seconds, self.milliseconds)

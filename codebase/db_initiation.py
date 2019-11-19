@@ -52,8 +52,8 @@ db.create_all()
 for tuple_item in srt_list:
     movieid = tuple_item[0]  # use this to add movieid once implemented
     srt_file = tuple_item[1]
-    for key in srt_file[1]:
-        subtitle = srt_file[1].getLineCaption(key)
+    for key in srt_file.lines:
+        subtitle = srt_file.getLineCaption(key)
         start_time = srt_file.getLineStartTime(key)
         end_time = srt_file.getLineEndTime(key)
         timestamp = Timestamp(key, subtitle, start_time + ":" + end_time)
