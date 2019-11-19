@@ -15,9 +15,10 @@ path_the_last_time = path_media_folder + "The Last Time I Saw Paris 1954"
 # The objects below contain methods
 # to extract all data from the associated
 # SRT files
-srt_an_ideal_husband = SrtFile(path_an_ideal_husband + ".srt")
-srt_dressed_to_kill = SrtFile(path_dressed_to_kill + ".srt")
-srt_the_last_time = SrtFile(path_the_last_time + ".srt")
+
+srt_list = [(movieid_an_ideal, SrtFile(path_an_ideal_husband + ".srt"))]
+srt_list.append(movieid_dressed, (SrtFile(path_dressed_to_kill + ".srt")))
+srt_list.append(movieid_the_last, SrtFile(path_the_last_time + ".srt")))
 
 
 class Movie(db.Model):
@@ -46,8 +47,19 @@ class Timestamp(db.Model):
 
 app.run
 db.create_all()
-timestamp = Timestamp(1, "hello world", "1:2")
-db.session.add(timestamp)
+
+# An attempt to add timestamps to db,
+# will need to setup movie relation first, though
+for tuple_item in srt_list:
+    movieid = tuple_item[0]  # use this to add movieid once implemented
+    srt_file = tuple_item[1]
+    for key in srt_file[1]:
+        subtitle = srt_file[1].getLineCaption(key)
+        start_time = srt_file.getLineStartTime(key)
+        end_time = srt_file.getLineEndTime(key)
+        timestamp = Timestamp(key, subtitle, start_time + ":" + end_time)
+        db.session.add(timestamp)
+
 results = db.session.query(Timestamp).filter_by(uid=1)
 for row in results:
     print(row.subtitle)
