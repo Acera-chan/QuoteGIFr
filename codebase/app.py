@@ -10,6 +10,8 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '***REMOVED***'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://***REMOVED***:***REMOVED***@quotegifr-db2.csj8xbgbgcjk.us-east-1.rds.amazonaws.com:3306/quotegifrdb'
+
 db = SQLAlchemy(app)
 
 
@@ -27,7 +29,7 @@ class Movie(db.Model):
 
 class Timestamp(db.Model):
     __tablename__ = 'timestamp'
-    uid = db.Column(db.Integer, primary_key=True)
+    uid = db.Column(db.Integer, primary_key=True, nullable = False)
     startime = db.Column(db.String(100), nullable=False)
     endtime = db.Column(db.String(100), nullable=False)
     subtitle = db.Column(db.String(100), nullable=False)
@@ -36,7 +38,7 @@ class Timestamp(db.Model):
 
     # for printing out a timestamp
     def __repr__(self):
-        return f"User('{self.uid}', '{self.movieid}', '{self.subtitle}', '{self.timestamp}')"
+        return f"User('{self.uid}', '{self.movieid}', '{self.subtitle}', '{self.startime}', '{self.endtime}')"
 
 
 @app.route("/", methods = ["GET", "POST"])
