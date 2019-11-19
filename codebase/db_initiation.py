@@ -20,7 +20,7 @@ srt_list.append(("movieid_dressed", SrtFile(path_dressed_to_kill + ".srt")))
 srt_list.append(("movieid_the_last", SrtFile(path_the_last_time + ".srt")))
 
 
-class Movie(db.Model):
+""" class Movie(db.Model):
     def __init__(self, uid, title):
         self.uid = uid
         self.title = title
@@ -41,7 +41,33 @@ class Timestamp(db.Model):
     subtitle = db.Column(db.String(100), nullable=False)
     timestamp = db.Column(db.String(100), nullable=False)
     movieid = db.Column(db.Integer, db.ForeignKey('movie.uid'))
-    movie = db.relationship("Movie", back_populates='movie')
+    movie = db.relationship("Movie", back_populates='movie') """
+
+
+class Movie(db.Model):
+    __tablename__ = 'movie'
+    uid = db.Column(db.Integer, primary_key=True, nullable=False)
+    title = db.Column(db.String(100), nullable=False)
+    # Capital 'T' in 'Timestamp' because we're referencing the Timestamp class
+    timestamps = db.relationship('Timestamp', backref = 'movie', lazy = True)
+
+    # for printing out a movie
+    def __repr__(self):
+        return f"User('{self.uid}', '{self.title}')"
+
+
+class Timestamp(db.Model):
+    __tablename__ = 'timestamp'
+    uid = db.Column(db.Integer, primary_key=True)
+    movieid = db.Column(db.Integer, nullable = False)
+    subtitle = db.Column(db.String(100), nullable=False)
+    timestamp = db.Column(db.String(100), nullable=False)
+    # Lowercase 'm' in 'movie.id' because we're referencing the tablename 'movie', not the class 'Movie'
+    movieid = db.Column(db.Integer, db.ForeignKey('movie.uid'), nullable = False)
+
+    # for printing out a timestamp
+    def __repr__(self):
+        return f"User('{self.uid}', '{self.movieid}', '{self.subtitle}', '{self.timestamp}')"
 
 
 app.run
