@@ -24,7 +24,7 @@ class Movie(db.Model):
 
     # for printing out a movie
     def __repr__(self):
-        return f"User('{self.uid}', '{self.title}')"
+        return f"Movie('{self.uid}', '{self.title}')"
 
 
 class Timestamp(db.Model):
@@ -38,7 +38,7 @@ class Timestamp(db.Model):
 
     # for printing out a timestamp
     def __repr__(self):
-        return f"User('{self.uid}', '{self.movieid}', '{self.subtitle}', '{self.startime}', '{self.endtime}')"
+        return f"Timestamp('{self.uid}', '{self.movieid}', '{self.subtitle}', '{self.startime}', '{self.endtime}')"
 
 
 @app.route("/", methods = ["GET", "POST"])
