@@ -11,9 +11,9 @@ def main():
     starttime =  "00:07:21,754"
     endtime = "00:07:31,029"
     # set these to appropriate locations, eventually will be passed in from db
-    videofileloc = r"C:\Users\Konrad\Desktop\MagickTests\media\An Ideal Husband 1947.mp4"
-    strfileloc = r"C:\Users\Konrad\Desktop\MagickTests\media\An Ideal Husband 1947.srt"
-    outfile = r"C:\Users\Konrad\Desktop\MagickTests\outfile"
+    videofileloc = r"media\An Ideal Husband 1947.mp4"
+    strfileloc = r"media\An Ideal Husband 1947.srt"
+    outfile = r"outfile"
     
     gif_outfileloc = (outfile+r"\GIF_{}.gif").format(datetime.now().strftime("%H_%M_%S"))
     jpg_outfileloc = (outfile+r"\JPG_{}.jpg").format(datetime.now().strftime("%H_%M_%S"))

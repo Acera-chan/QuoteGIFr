@@ -36,11 +36,11 @@
                     <form class='filmSelectForm' method='POST' action={{ url_for('quotepage') }}>
                         <fieldset>
                             <legend>Here are the movies we found for <i>"{{ filmRequest }}"</i>:</legend>
-                            <!-- result[0] = movie name displayed -->
+                            <!-- result[0].title = movie name displayed -->
                             {{ result[0] }}
 
-                            <!-- result[1].movieName() = hidden form which stores the name of a movie -->
-                            {{ result[1].movieName() }}
+                            <!-- result[1].movieID() = hidden form which stores a Movie object's uid -->
+                            {{ result[1].movieID() }}
 
                             <!-- result[1].submit() = submit button -->
                             {{ result[1].submit() }}

@@ -14,6 +14,7 @@
         <legend>Now Search for a Quote in "{{ movieName }}"</legend>
         {{ form.quote.label() }}
         {{ form.quote() }}
+        {{ form.movieID() }}
     </fieldset>
     {{ form.submit() }}
 </form>
@@ -34,12 +35,9 @@
                             <!-- result[0] = quote displayed-->
                             {{ result[0] }}
 
-                            <!-- result[1].movieName() = hidden form input which stores name of movie from which 
+                            <!-- result[1].movieName() = hidden form input which stores uid of db Timestamp object from which 
                                  the quote comes from  -->
-                            {{ result[1].movieName() }}
-
-                            <!-- result[1].quote() == hidden form input which stores the actual quote -->
-                            {{ result[1].quote() }}
+                            {{ result[1].quoteID }}
 
                             <!-- result[1].submit() = submit button -->
                             {{ result[1].submit() }}

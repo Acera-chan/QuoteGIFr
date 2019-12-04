@@ -15,19 +15,18 @@ class MovieForm(FlaskForm):
 
 # class for a form for searching for a quote
 class QuoteForm(FlaskForm):
-    movieName = HiddenField()
+    movieID = HiddenField()
     quote = StringField('Film Quote', validators=[DataRequired()], render_kw={"placeholder": "Enter quote text..."})
     submit = SubmitField('Submit')
 
 
 # class for a form for selecting an individual movie
 class SelectMovieForm(FlaskForm):
-    movieName = HiddenField()
+    movieID = HiddenField()
     submit = SubmitField('Select')
 
 
 # class for a form for selecting an individual quote
 class SelectQuoteForm(FlaskForm):
-    movieName = HiddenField()
-    quote = HiddenField()
+    quoteID = HiddenField()
     submit = SubmitField('Select')

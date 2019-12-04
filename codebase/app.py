@@ -5,12 +5,12 @@
 from flask import Flask, render_template, request, redirect, url_for
 from forms import MovieForm, QuoteForm, SelectMovieForm, SelectQuoteForm
 from flask_sqlalchemy import SQLAlchemy
-
+from sqlalchemy import func, and_
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '***REMOVED***'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://***REMOVED***:***REMOVED***@quotegifr-db2.csj8xbgbgcjk.us-east-1.rds.amazonaws.com:3306/quotegifrdb'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://***REMOVED***:***REMOVED***@quotegifr-db2.csj8xbgbgcjk.us-east-1.rds.amazonaws.com:3306/quotegifrdb?charset=utf8'
 
 db = SQLAlchemy(app)
 
@@ -54,15 +54,14 @@ def homepage():
             # the user's film request
             filmRequest = request.form.get('movieName')
 
-            # do db stuff here...
-            # the db query results using "filmRequest"
-            filmResults = [filmRequest]
+            filmResults = Movie.query.filter(func.soundex(Movie.title) == func.soundex(filmRequest)).all()
+            # filmResults = [filmRequest]
 
             # stores selection forms for all of the movie results the db returns
             filmForms = []
             # create the selection forms
             for result in filmResults:
-                filmForms.append([result, SelectMovieForm(movieName = result)])
+                filmForms.append([result.title, SelectMovieForm(movieID = result.uid)])
             return render_template('index.html', form = form, filmRequest = filmRequest, filmForms = filmForms)
 
     # if no post data (or satisfactory post data) was submitted, render the base homepage
@@ -80,33 +79,36 @@ def quotepage():
     if request.method == 'POST':
 
         # check to see if form data under the name of 'movieName' and 'quote' was submitted
-        if request.form.get('movieName') and request.form.get('quote'):
+        if request.form.get('movieID') and request.form.get('quote'):
 
-            movieName = request.form.get('movieName')
+            movieID = request.form.get('movieID')
+            movie = Movie.query.get(movieID)
+            movieName = movie.title
             quoteRequest = request.form.get('quote')
 
             # form for submitting a different quote request (search bar, essentially)
-            form = QuoteForm(movieName = movieName)
+            form = QuoteForm(movieID = movieID)
 
             # do db stuff here...
             # the db query results using "quoteRequest"
-            quoteResults = [quoteRequest]
+            quoteResults = Timestamp.query.filter(and_(Timestamp.movieid == movieID, func.soundex(Timestamp.subtitle) == func.soundex(quoteRequest))).all()
 
             # stores selection forms for all of the quote results the db returns
             quoteForms = []
             for result in quoteResults:
-                quoteForms.append([result, SelectQuoteForm(movieName = movieName, quote = result)])
-            return render_template('quote.html', title = 'Quote', form = form, movieName = movieName, quoteRequest = quoteRequest, quoteForms = quoteForms)
+                quoteForms.append([result.subtitle, SelectQuoteForm(quoteID = result.uid)])
+            return render_template('quote.html', title = 'Quote', movieName = movieName, form = form, quoteRequest = quoteRequest, quoteForms = quoteForms)
 
         # if form data under the names of 'movieName' and 'quote' were not both submitted, check to see if 
         # just 'movieName' data was submitted (ie just came from "homepage")
-        elif request.form.get('movieName'):
-            movieName = request.form.get('movieName')
+        elif request.form.get('movieID'):
+            movieID = request.form.get('movieID')
+            movie = Movie.query.get(movieID)
+            movieName = movie.title
 
             # form for submitting a quote request (search bar, essentially)
-            form = QuoteForm(movieName = movieName)
+            form = QuoteForm(movieID = movieID)
 
-            movieName = request.form.get('movieName')
             return render_template('quote.html', title = 'Quote', form = form, movieName = movieName)
 
     # redirect the user if they didn't select a movie from "homepage" or search for a quote on "quotepage" 
@@ -118,9 +120,16 @@ def quotepage():
 def generateGIFpage():
     # if post data submitted, print it out (will use this data to generate a gif)
     if request.method == 'POST':
-        movie = request.form.get('movieName')
-        quote = request.form.get('quote')
-        return render_template('generate.html', movie = movie, quote = quote)
+        if request.form.get('quoteID'):
+            quoteID = request.form.get('quoteID')
+            timestamp = Timestamp.query.get(quoteID)
+            quote = timestamp.subtitle
+            startime = timestamp.startime
+            endtime = timestamp.endtime
+            movieID = timestamp.movieid
+            movie = Movie.query.get(movieID)
+            movieName = movie.title
+            return render_template('generate.html', movieID = movieID, movieName = movieName, quoteID = quoteID, quote = quote, startime = startime, endtime = endtime)
 
     return redirect(url_for('homepage'))
 

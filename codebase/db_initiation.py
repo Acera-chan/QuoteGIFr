@@ -151,12 +151,14 @@ class SrtTime:
         return output
 
 
-#srt_file = SrtFile("media/The Last Time I Saw Paris 1954.srt")
+# srt_file = SrtFile("media/An Ideal Husband 1947.srt")
+# srt_file = SrtFile("media/Dressed to Kill 1946.srt")
+srt_file = SrtFile("media/The Last Time I Saw Paris 1954.srt")
 
-"""for key in srt_file.lines:
+for key in srt_file.lines:
     subtitle = srt_file.getLineCaption(key)
     start_time = srt_file.getLineStartTime(key)
     end_time = srt_file.getLineEndTime(key)
     timestamp = Timestamp(startime = start_time, endtime = end_time, subtitle = subtitle, movieid = 3)
     db.session.add(timestamp)
-    db.session.commit()"""
+    db.session.commit()
