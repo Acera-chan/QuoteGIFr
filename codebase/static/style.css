@@ -22,17 +22,8 @@ header {
     background-position: center left;
     background-repeat: no-repeat;
 }
-
-img {
-    height: 10vw;
-    width: 15vh;;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-
-}
 body {
-    position: fixed;    
+    position: relative;    
     font-family: "Corbel";
     font-size: large;
     color: #ffffee;
@@ -115,4 +106,12 @@ table{
     width:10vw;
     left:20vw;
     font-size:3ex;
+}
+.gif_display {
+    text-align:center;
+    max-width:100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
