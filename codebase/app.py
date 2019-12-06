@@ -6,6 +6,8 @@ from flask import Flask, render_template, request, redirect, url_for
 from forms import MovieForm, QuoteForm, SelectMovieForm, SelectQuoteForm
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, and_
+from datetime import datetime  # used to create filename of gif in this context
+from quotegipher import gifEngine, getImage
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '***REMOVED***'
@@ -123,13 +125,19 @@ def generateGIFpage():
         if request.form.get('quoteID'):
             quoteID = request.form.get('quoteID')
             timestamp = Timestamp.query.get(quoteID)
-            quote = timestamp.subtitle
-            startime = timestamp.startime
+
+            starttime = timestamp.startime
             endtime = timestamp.endtime
+
             movieID = timestamp.movieid
-            movie = Movie.query.get(movieID)
-            movieName = movie.title
-            return render_template('generate.html', movieID = movieID, movieName = movieName, quoteID = quoteID, quote = quote, startime = startime, endtime = endtime)
+            movieName = Movie.query.get(movieID).title
+            videofileloc = 'media/' + movieName + '.mp4'
+            strfileloc = 'media/' + movieName + '.srt'
+
+            outfile = "static/outfile"
+            gif_outfileloc = (outfile + "/GIF_{}.gif").format(datetime.now().strftime("%H_%M_%S"))
+            gifEngine(starttime, endtime, videofileloc, strfileloc,  gif_outfileloc)
+            return render_template('generate.html', gif_outfileloc = gif_outfileloc[7:])
 
     return redirect(url_for('homepage'))
 

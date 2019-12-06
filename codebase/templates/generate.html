@@ -1,16 +1,6 @@
 {% extends 'layout.html' %}
 {% block content %}
 
-{{ movieID }}
-<br>
-{{ movieName }}
-<br>
-{{ quoteID }}
-<br>
-{{ quote }}
-<br>
-{{ startime }}
-<br>
-{{ endtime }}
+<img src = {{ url_for("static", filename = gif_outfileloc) }}>
 
 {% endblock content %}
