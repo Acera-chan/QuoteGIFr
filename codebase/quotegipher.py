@@ -58,11 +58,24 @@ class SrtFile:
                         captionstrings = []
                         intlinetracker = 0
                 else:  # add caption to list
-                    #do some parsing to avoid long lines
-                    if len(line) > 44:
-                        linebreak = line.find(' ', int(len(line)/2), len(line)-1)
-                        line = line[:linebreak] + '\n' + line[linebreak+1:]  # linebreak+1 removes space between words
-                    captionstrings.append(line)
+                    if("<i>" in line):
+                        line = line.replace("<i>", "")
+                    if("</i>" in line):
+                        line = line.replace("</i>", "")
+                    if("\{i\}" in line):
+                        line = line.replace("\{i\}", "")
+                    if("\{/i\}" in line):
+                        line = line.replace("\{/i\}", "")
+                    # do some parsing to avoid long lines
+                    else:
+                        for subline in line.split(sep='\r\n'):
+                            if len(subline) > 44:
+                                linebreak = subline.find(' ', int((len(subline))/2), len(subline)-1)
+                                subline = subline[:linebreak]+'\r\n'+subline[linebreak+1:]  # linebreak+1 removes space between words
+                            if subline != '':
+                                subline = subline + "\r\n"
+                            if subline != '':
+                                captionstrings.append(subline)
                 intlinetracker = intlinetracker + 1
         except FileNotFoundError as fnf_error:
             raise fnf_error
@@ -137,16 +150,19 @@ class SrtTime:
         if self.seconds < 0:
             self.seconds = self.seconds + 60
             self.minutes = self.minutes - 1
+        if self.minutes < 0:
+            self.minutes = self.minutes + 60
+            self.hours = self.hours - 1
 
     #  Adds newSeconds and newMilliseconds to current time
     #  and normalizes resulting time
     def adjustTime(self, newSeconds, newMilliseconds):
-        self.milliseconds = self.milliseconds + newMilliseconds
+        self.milliseconds = self.milliseconds + int(newMilliseconds)
         self.normalize()
-        self.seconds = self.seconds + newSeconds
+        self.seconds = self.seconds + int(newSeconds)
         self.normalize()
 
     #  Generates a string in SRT format of HH:MM:SS,mmm
     def toString(self):
-        output = "{:0>2d}:{:0>2d}:{:0>2d},{:0>3d}".format(self.hours, self.minutes, self.seconds, self.milliseconds)
+        output = "{:0>2d}:{:0>2d}:{:0>2d},{:0>3d}".format(int(self.hours), int(self.minutes), int(self.seconds), int(self.milliseconds))
         return output

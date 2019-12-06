@@ -2,8 +2,8 @@
 from quotegipher import SrtTime
 
 def main():
-    inFile = open(r"C:\Users\rkwiley\Downloads\media\An Ideal Husband 1947.srt", 'r', newline="\r\n")
-    outFile = open(r"C:\Users\rkwiley\Downloads\media\An Ideal Husband 1947 - Copy.srt", 'w', newline='')
+    inFile = open(r"G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\MEDIA\The-Last-Time-I-Saw-Paris.srt", 'r', newline="\r\n")
+    outFile = open(r"G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\MEDIA\The-Last-Time-I-Saw-Paris-Copy.srt", 'w+', newline='')
 
     # Because the srt's were somehow not lining up evenly,
     # I added the following offset. Simply input how far off the
@@ -15,11 +15,11 @@ def main():
     totalLines = 1499  # number of line headers in srt # <---- ENTER THIS
 
     # Negative values are allowed in following positions
-    startTimeDiffMilli = -61  # <---- ENTER THIS
-    startTimeDiffSec = 2  # <---- ENTER THIS
+    startTimeDiffMilli = 600  # <---- ENTER THIS
+    startTimeDiffSec = -16  # <---- ENTER THIS
 
-    endTimeDiffMilli = 850  # <---- ENTER THIS
-    endTimeDiffSec = 9  # <---- ENTER THIS
+    endTimeDiffMilli = 590  # <---- ENTER THIS
+    endTimeDiffSec = -18  # <---- ENTER THIS
     # ======================================
     timeDiffSec = 0  # these values are going to be set later,
     timeDiffMilli = 0  # don't put custom values here
@@ -41,7 +41,7 @@ def main():
             # shift time in srtTime objects
             t1.adjustTime(timeDiffSec, timeDiffMilli)
             t2.adjustTime(timeDiffSec, timeDiffMilli)
-            outString = t1.tostring() + " --> " + t2.tostring() + "\r\n"
+            outString = t1.toString() + " --> " + t2.toString() + "\r\n"
         elif line == '\r\n':
             intLine = 0
             outString = line
