@@ -8,12 +8,12 @@ API_KEY = 'iTmKRrpWJUCpn6nWMSIp42gmkXA6hpfh'
 
 def main():
     #the five variables defined below are what gifEngine needs
-    starttime =  "00:07:21,754"
-    endtime = "00:07:31,029"
+    starttime =  "00:03:50,975"
+    endtime = "00:03:57,054"
     # set these to appropriate locations, eventually will be passed in from db
-    videofileloc = r"media\An Ideal Husband 1947.mp4"
-    strfileloc = r"media\An Ideal Husband 1947.srt"
-    outfile = r"outfile"
+    videofileloc = r"G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\MEDIA\The Last Time I Saw Paris 1954.mp4"
+    strfileloc = r"G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\MEDIA\The Last Time I Saw Paris 1954.srt"
+    outfile = r"static\outfile"
     
     gif_outfileloc = (outfile+r"\GIF_{}.gif").format(datetime.now().strftime("%H_%M_%S"))
     jpg_outfileloc = (outfile+r"\JPG_{}.jpg").format(datetime.now().strftime("%H_%M_%S"))
