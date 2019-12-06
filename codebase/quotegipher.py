@@ -58,11 +58,22 @@ class SrtFile:
                         captionstrings = []
                         intlinetracker = 0
                 else:  # add caption to list
-                    #do some parsing to avoid long lines
-                    if len(line) > 44:
-                        linebreak = line.find(' ', int(len(line)/2), len(line)-1)
-                        line = line[:linebreak] + '\n' + line[linebreak+1:]  # linebreak+1 removes space between words
-                    captionstrings.append(line)
+                    if("<i>" in line):
+                        line = line.replace("<i>", "")
+                    if("</i>" in line):
+                        line = line.replace("</i>", "")
+                    if("\{i\}" in line):
+                        line = line.replace("\{i\}", "")
+                    if("\{/i\}" in line):
+                        line = line.replace("\{/i\}", "")
+                    # do some parsing to avoid long lines
+                    for subline in line.split(sep='\n'):
+                        if len(subline) > 44:
+                            print(subline)
+                            print(str(len(subline)) + " characters long\n")
+                            linebreak = subline.find(' ', int((len(subline))/2), len(subline)-1)
+                            subline = subline[:linebreak]+'\n'+subline[linebreak+1:]  # linebreak+1 removes space between words
+                        captionstrings.append(subline)
                 intlinetracker = intlinetracker + 1
         except FileNotFoundError as fnf_error:
             raise fnf_error
