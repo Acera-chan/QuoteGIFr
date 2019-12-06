@@ -22,7 +22,7 @@ class Movie(db.Model):
     uid = db.Column(db.Integer, primary_key=True, nullable=False)
     title = db.Column(db.String(100), nullable=False)
     # Capital 'T' in 'Timestamp' because we're referencing the Timestamp class
-    timestamps = db.relationship('Timestamp', backref = 'movie', lazy = True)
+    timestamps = db.relationship('Timestamp', backref='movie', lazy=True)
 
     # for printing out a movie
     def __repr__(self):
@@ -31,20 +31,20 @@ class Movie(db.Model):
 
 class Timestamp(db.Model):
     __tablename__ = 'timestamp'
-    uid = db.Column(db.Integer, primary_key=True, nullable = False)
+    uid = db.Column(db.Integer, primary_key=True, nullable=False)
     startime = db.Column(db.String(100), nullable=False)
     endtime = db.Column(db.String(100), nullable=False)
     subtitle = db.Column(db.String(100), nullable=False)
     # Lowercase 'm' in 'movie.id' because we're referencing the tablename 'movie', not the class 'Movie'
-    movieid = db.Column(db.Integer, db.ForeignKey('movie.uid'), nullable = False)
+    movieid = db.Column(db.Integer, db.ForeignKey('movie.uid'), nullable=False)
 
     # for printing out a timestamp
     def __repr__(self):
         return f"Timestamp('{self.uid}', '{self.movieid}', '{self.subtitle}', '{self.startime}', '{self.endtime}')"
 
 
-@app.route("/", methods = ["GET", "POST"])
-@app.route("/film", methods = ["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])
+@app.route("/film", methods=["GET", "POST"])
 def homepage():
     # form for user to enter a movie name they come up with
     form = MovieForm()
@@ -63,14 +63,14 @@ def homepage():
             filmForms = []
             # create the selection forms
             for result in filmResults:
-                filmForms.append([result.title, SelectMovieForm(movieID = result.uid)])
-            return render_template('index.html', form = form, filmRequest = filmRequest, filmForms = filmForms)
+                filmForms.append([result.title, SelectMovieForm(movieID=result.uid)])
+            return render_template('index.html', form=form, filmRequest=filmRequest, filmForms=filmForms)
 
     # if no post data (or satisfactory post data) was submitted, render the base homepage
-    return render_template('index.html', form = form)
+    return render_template('index.html', form=form)
 
 
-@app.route("/quote", methods = ["GET", "POST"])
+@app.route("/quote", methods=["GET", "POST"])
 def quotepage():
 
     # !IMPORTANT! 
@@ -89,7 +89,7 @@ def quotepage():
             quoteRequest = request.form.get('quote')
 
             # form for submitting a different quote request (search bar, essentially)
-            form = QuoteForm(movieID = movieID)
+            form = QuoteForm(movieID=movieID)
 
             # do db stuff here...
             # the db query results using "quoteRequest"
@@ -98,8 +98,8 @@ def quotepage():
             # stores selection forms for all of the quote results the db returns
             quoteForms = []
             for result in quoteResults:
-                quoteForms.append([result.subtitle, SelectQuoteForm(quoteID = result.uid)])
-            return render_template('quote.html', title = 'Quote', movieName = movieName, form = form, quoteRequest = quoteRequest, quoteForms = quoteForms)
+                quoteForms.append([result.subtitle, SelectQuoteForm(quoteID=result.uid)])
+            return render_template('quote.html', title='Quote', movieName=movieName, form=form, quoteRequest=quoteRequest, quoteForms=quoteForms)
 
         # if form data under the names of 'movieName' and 'quote' were not both submitted, check to see if 
         # just 'movieName' data was submitted (ie just came from "homepage")
@@ -109,9 +109,9 @@ def quotepage():
             movieName = movie.title
 
             # form for submitting a quote request (search bar, essentially)
-            form = QuoteForm(movieID = movieID)
+            form = QuoteForm(movieID=movieID)
 
-            return render_template('quote.html', title = 'Quote', form = form, movieName = movieName)
+            return render_template('quote.html', title='Quote', form=form, movieName=movieName)
 
     # redirect the user if they didn't select a movie from "homepage" or search for a quote on "quotepage" 
     # (ie no correct post data submitted)
