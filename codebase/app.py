@@ -56,7 +56,7 @@ def homepage():
             # the user's film request
             filmRequest = request.form.get('movieName')
 
-            filmResults = Movie.query.filter(func.soundex(Movie.title) == func.soundex(filmRequest)).all()
+            filmResults = Movie.query.filter(Movie.title.like("%"+filmRequest+"%")).all()
             # filmResults = [filmRequest]
 
             # stores selection forms for all of the movie results the db returns
@@ -97,7 +97,7 @@ def quotepage():
 
             # do db stuff here...
             # the db query results using "quoteRequest"
-            quoteResults = Timestamp.query.filter(and_(Timestamp.movieid == movieID, func.soundex(Timestamp.subtitle) == func.soundex(quoteRequest))).all()
+            quoteResults = Timestamp.query.filter(and_(Timestamp.movieid == movieID, Timestamp.subtitle.like("%"+quoteRequest+"%"))).all()
 
             # stores selection forms for all of the quote results the db returns
             quoteForms = []
