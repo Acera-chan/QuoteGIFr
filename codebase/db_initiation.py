@@ -150,15 +150,22 @@ class SrtTime:
         output = "{:0>2d}:{:0>2d}:{:0>2d},{:0>3d}".format(self.hours, self.minutes, self.seconds, self.milliseconds)
         return output
 
+def initiate(srt_file, movieid):
+    for key in srt_file.lines:
+        subtitle = srt_file.getLineCaption(key)
+        start_time = srt_file.getLineStartTime(key)
+        end_time = srt_file.getLineEndTime(key)
+        timestamp = Timestamp(startime = start_time, endtime = end_time, subtitle = subtitle, movieid = movieid)
+        db.session.add(timestamp)
+        db.session.commit()
 
-# srt_file = SrtFile("media/An Ideal Husband 1947.srt")
-# srt_file = SrtFile("media/Dressed to Kill 1946.srt")
+srt_file = SrtFile("media/An Ideal Husband 1947.srt")
+initiate(srt_file = srt_file, movieid = 1)
+
+srt_file = SrtFile("media/Dressed to Kill 1946.srt")
+initiate(srt_file = srt_file, movieid = 2)
+
 srt_file = SrtFile("media/The Last Time I Saw Paris 1954.srt")
+initiate(srt_file = srt_file, movieid = 3)
 
-for key in srt_file.lines:
-    subtitle = srt_file.getLineCaption(key)
-    start_time = srt_file.getLineStartTime(key)
-    end_time = srt_file.getLineEndTime(key)
-    timestamp = Timestamp(startime = start_time, endtime = end_time, subtitle = subtitle, movieid = 3)
-    db.session.add(timestamp)
-    db.session.commit()
+

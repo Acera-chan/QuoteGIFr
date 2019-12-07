@@ -23,9 +23,16 @@
     </fieldset>    
 </form>
 
-<!-- Check to see if 'filmRequest' was passed in with render_template (aka the user has searched
-     for a film) -->
-{% if filmRequest %}
+<!-- If no results were found for a user's 'movieRequest', notify them -->
+{% if msg %}
+    <div class='errorMsg'>
+        {{ msg }}
+    </div>
+{% endif %}
+
+<!-- Check to see if 'filmForms' was passed in with render_template (aka the user has searched
+     for a film and results were found) -->
+{% if filmForms %}
     <!-- Table which contains all of the film select forms -->
     <table id='filmSelectForms'>
         <!-- Potentially many film select forms -->

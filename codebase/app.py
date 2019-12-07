@@ -12,7 +12,7 @@ from quotegipher import gifEngine, getImage
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '***REMOVED***'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://***REMOVED***:***REMOVED***@quotegifr-db2.csj8xbgbgcjk.us-east-1.rds.amazonaws.com:3306/quotegifrdb?charset=utf8'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://***REMOVED***:***REMOVED***@quotegifr-db2.csj8xbgbgcjk.us-east-1.rds.amazonaws.com:3306/quotegifrdb?charset=utf8mb4'
 
 db = SQLAlchemy(app)
 
@@ -64,6 +64,10 @@ def homepage():
             # create the selection forms
             for result in filmResults:
                 filmForms.append([result.title, SelectMovieForm(movieID=result.uid)])
+
+            if filmForms == []:
+                msg = 'Sorry, we couldn\'t find anything. Perhaps try searching again'
+                return render_template('index.html', form=form, filmRequest=filmRequest, msg=msg)
             return render_template('index.html', form=form, filmRequest=filmRequest, filmForms=filmForms)
 
     # if no post data (or satisfactory post data) was submitted, render the base homepage
@@ -99,6 +103,10 @@ def quotepage():
             quoteForms = []
             for result in quoteResults:
                 quoteForms.append([result.subtitle, SelectQuoteForm(quoteID=result.uid)])
+            
+            if quoteForms == []:
+                msg = 'Sorry, we couldn\'t find anything. Perhaps try searching again'
+                return render_template('quote.html', title='Quote', movieName='movieName', form=form, quoteRequest=quoteRequest, msg=msg)
             return render_template('quote.html', title='Quote', movieName=movieName, form=form, quoteRequest=quoteRequest, quoteForms=quoteForms)
 
         # if form data under the names of 'movieName' and 'quote' were not both submitted, check to see if 

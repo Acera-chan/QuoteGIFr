@@ -19,9 +19,17 @@
     {{ form.submit() }}
 </form>
 
-<!-- Check to see if 'quoteRequest' was passed in with render_template (aka the user has searched
-     for a quote) -->
-{% if quoteRequest %}
+<!-- If no results were found for a 'quoteRequest' submitted by the user, display
+     a notification -->
+{% if msg %}
+    <div class='errorMsg'>
+        {{ msg }}
+    </div>
+{% endif %}
+
+<!-- Check to see if 'quoteForms' was passed in with render_template (aka the user has searched
+     for a quote and results were found) -->
+{% if quoteForms %}
     <!-- Table which contains all of the quote select forms -->
     <table id='quoteSelectForms'>
         <!-- Potentially many quote select forms -->
