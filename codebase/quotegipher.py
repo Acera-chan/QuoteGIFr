@@ -31,7 +31,7 @@ def getImage(timecode, videofileloc, outfileloc):
     try:
         video = VideoFileClip(videofileloc)
         video.save_frame(outfileloc, timecode)
-        
+        video.close()
     except Exception as errCode:
         retcode = errCode
 
