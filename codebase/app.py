@@ -136,9 +136,11 @@ def generateGIFpage():
 
             outfile = "static/outfile"
             gif_outfileloc = (outfile + "/GIF_{}.gif").format(datetime.now().strftime("%H_%M_%S"))
-            gifEngine(starttime, endtime, videofileloc, strfileloc,  gif_outfileloc)
-            return render_template('generate.html', gif_outfileloc = gif_outfileloc[7:])
-
+            retcode = gifEngine(starttime, endtime, videofileloc, strfileloc,  gif_outfileloc)
+            if retcode == 0:
+                return render_template('generate.html', gif_outfileloc=gif_outfileloc[7:])
+            else:
+                return redirect(url_for('homepage')) # This needs to go to an error page of some kind, GIF was not created
     return redirect(url_for('homepage'))
 
 # Can now run app directly ('python app.py' command in bash) without 

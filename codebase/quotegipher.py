@@ -2,28 +2,40 @@
 from moviepy.video.tools.subtitles import SubtitlesClip
 from moviepy.editor import TextClip, VideoFileClip, CompositeVideoClip
 import io
+import logging
+import prolog
 
 
 #  Creates a gif from the videoFileLoc with subtitles from strFileLoc
-#  Returns the location of the GIF as a string
-def gifEngine(starttime, endtime, videofileloc, srtfileloc, outfileloc):
-
+#  Raises IOError or OSError from moviepy/gif_writers
+def gifEngine(starttime, endtime, videofileloc, srtfileloc, outfileloc, logger='gifEngine.log'):
+    logging.basicConfig(filename=logger, level=logging.DEBUG)
+    logger = logging.getLogger(__name__)
+    prolog.basic_config()
     # creating the initial GIF
-    generator = lambda txt: TextClip(txt, font='Impact', fontsize=28, color='white')
-    video = VideoFileClip(videofileloc)
-    sub = SubtitlesClip(srtfileloc, generator).set_position(("center", "bottom"), relative=True)
-    composite = CompositeVideoClip([video, sub])
-    composite = composite.subclip(starttime, endtime)
-    composite.write_gif(outfileloc, program='ffmpeg', opt='palettegen')  # using new palettegen opt
-
-    return (outfileloc)
+    try:
+        generator = lambda txt: TextClip(txt, font='Impact', fontsize=28, color='white')
+        video = VideoFileClip(videofileloc)
+        sub = SubtitlesClip(srtfileloc, generator).set_position(("center", "bottom"), relative=True)
+        composite = CompositeVideoClip([video, sub])
+        composite = composite.subclip(starttime, endtime)    
+        composite.write_gif(outfileloc, program='ffmpeg', opt='palettegen', logger=logger, verbose=True)  # using new palettegen opt
+        return 0
+    except (IOError, OSError) as err:
+        return err
 
 
 #  writes a single frame of a video file (at timecode) to outfileloc
 def getImage(timecode, videofileloc, outfileloc):
-    video = VideoFileClip(videofileloc)
-    video.save_frame(outfileloc, timecode)
-    return(outfileloc)
+    retcode = 0
+    try:
+        video = VideoFileClip(videofileloc)
+        video.save_frame(outfileloc, timecode)
+        
+    except Exception as errCode:
+        retcode = errCode
+
+    return(retcode)
 
 
 #  Class for parsing and manipulating text stored in an SRT format

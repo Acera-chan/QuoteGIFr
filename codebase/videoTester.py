@@ -2,31 +2,40 @@ from giphypop import Giphy  # necessary for uploading to giphy.com
 import webbrowser  # used to open giphy.com URL after upload
 from datetime import datetime  # used to create filename of gif in this context
 from quotegipher import gifEngine, getImage
-#Giphy api_key, required for uploads
+import prolog
+
+# Giphy api_key, required for uploads
 API_KEY = 'iTmKRrpWJUCpn6nWMSIp42gmkXA6hpfh'
 
 
 def main():
-    #the five variables defined below are what gifEngine needs
+    # the five variables defined below are what gifEngine needs
     starttime =  "00:03:50,975"
     endtime = "00:03:57,054"
     # set these to appropriate locations, eventually will be passed in from db
-    videofileloc = r"G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\MEDIA\The Last Time I Saw Paris 1954.mp4"
-    strfileloc = r"G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\MEDIA\The Last Time I Saw Paris 1954.srt"
+    videofileloc = r"G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\github_repo\QuoteGIFr\codebase\media\The Last Time I Saw Paris 1954.mp4"
+    strfileloc = r"G:\Users\Tempest3\Documents\USCU\Fall 2019\Software Engineering\QuoteGIFr\github_repo\QuoteGIFr\codebase\media\The Last Time I Saw Paris 1954.srt"
     outfile = r"static\outfile"
-    
+
     gif_outfileloc = (outfile+r"\GIF_{}.gif").format(datetime.now().strftime("%H_%M_%S"))
     jpg_outfileloc = (outfile+r"\JPG_{}.jpg").format(datetime.now().strftime("%H_%M_%S"))
-    
-    print(getImage(starttime, videofileloc, jpg_outfileloc) + " frame created.")
-    print(gifEngine(starttime, endtime, videofileloc, strfileloc,  gif_outfileloc) + " rendered successfully")
-    #print("Uploading to giphy.com...")
-    
-    #giphyobj = Giphy(API_KEY)
-    #response (below) is the URL for our giphy upload
-    #response = giphyobj.upload(["An Ideal Husband, Never marry a man with a future"], gif_outfileloc, username="QuoteGIFr")
 
-    #webbrowser.open_new(str(response))  # shows us the GIF on giphy.com
+    getImage(starttime, videofileloc, jpg_outfileloc)
+    retcode = gifEngine(starttime, endtime, videofileloc, strfileloc,  gif_outfileloc)
+    if retcode != 0:
+        print("Error encountered, gif not created")
+        print(retcode)
+    else:
+        print("Gif created successfully")
     
+    # print("Uploading to giphy.com...")
+
+    # giphyobj = Giphy(API_KEY)
+    # response (below) is the URL for our giphy upload
+    # response = giphyobj.upload(["An Ideal Husband, Never marry a man with a future"], gif_outfileloc, username="QuoteGIFr")
+
+    # webbrowser.open_new(str(response))  # shows us the GIF on giphy.com
+
+
 if '__main__' == __name__:
     main()

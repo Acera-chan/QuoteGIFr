@@ -35,8 +35,8 @@ def write_gif_with_tempfiles(clip, filename, fps=None, program= 'ImageMagick',
 
     tempfiles = []
     
-    logger(message='MoviePy - Building file %s\n' % filename)
-    logger(message='MoviePy - - Generating GIF frames')
+    logger.info(msg='MoviePy - Building file %s\n' % filename)
+    logger.info(msg='MoviePy - - Generating GIF frames')
 
     
     for i, t in logger.iter_bar(t=list(enumerate(tt))):
@@ -48,7 +48,7 @@ def write_gif_with_tempfiles(clip, filename, fps=None, program= 'ImageMagick',
     delay = int(100.0/fps)
 
     if program == "ImageMagick":
-        logger(message='MoviePy - - Optimizing GIF with ImageMagick...')
+        logger.info(msg='MoviePy - - Optimizing GIF with ImageMagick...')
         cmd = [get_setting("IMAGEMAGICK_BINARY"),
               '-delay' , '%d'%delay,
               "-dispose" ,"%d"%(2 if dispose else 1),
@@ -70,7 +70,7 @@ def write_gif_with_tempfiles(clip, filename, fps=None, program= 'ImageMagick',
 
     try:
         subprocess_call(cmd, logger=logger)
-        logger(message='MoviePy - GIF ready: %s.' % filename)
+        logger.info(msg='MoviePy - GIF ready: %s.' % filename)
 
     except (IOError,OSError) as err:
 
@@ -82,7 +82,7 @@ def write_gif_with_tempfiles(clip, filename, fps=None, program= 'ImageMagick',
                 "ImageMagick is not installed on your computer, or "
                 "(for Windows users) that you didn't specify the "
                 "path to the ImageMagick binary in file conf.py." )
-
+        logger.error(error)
         raise IOError(error)
 
     for f in tempfiles:
@@ -219,8 +219,8 @@ def write_gif(clip, filename, fps=None, program= 'ImageMagick',
             proc3 = sp.Popen(cmd3, **popen_params)
 
     # We send all the frames to the first process
-    logger(message='MoviePy - Building file  %s' % filename)
-    logger(message='MoviePy - - Generating GIF frames.')
+    logger.info(msg='MoviePy - Building file  %s' % filename)
+    logger.info(msg='MoviePy - - Generating GIF frames.')
     try:
         for t,frame in clip.iter_frames(fps=fps, logger=logger,
                                         with_times=True,  dtype="uint8"):
@@ -239,17 +239,18 @@ def write_gif(clip, filename, fps=None, program= 'ImageMagick',
                 "ImageMagick is not installed on your computer, or "
                 "(for Windows users) that you didn't specify the "
                 "path to the ImageMagick binary in file conf.py." )
-
-        raise IOError(error)
+        error = IOError(error)
+        logger.error(error)
+        raise error
     if program == 'ImageMagick':
-        logger(message='MoviePy - - Optimizing GIF with ImageMagick.')
+        logger.info(msg='MoviePy - - Optimizing GIF with ImageMagick.')
     proc1.stdin.close()
     proc1.wait()
     if program == 'ImageMagick':
         proc2.wait()
         if opt:
             proc3.wait()
-    logger(message='MoviePy - - File ready: %s.' % filename)
+    logger.info(msg='MoviePy - - File ready: %s.' % filename)
 
 
 def write_gif_with_image_io(clip, filename, fps=None, opt=0, loop=0,
@@ -268,8 +269,10 @@ def write_gif_with_image_io(clip, filename, fps=None, opt=0, loop=0,
     logger = proglog.default_bar_logger(logger)
 
     if not IMAGEIO_FOUND:
-        raise ImportError("Writing a gif with imageio requires ImageIO installed,"
+        error = ImportError("Writing a gif with imageio requires ImageIO installed,"
                          " with e.g. 'pip install imageio'")
+        logger.error(error)
+        raise error
 
     if fps is None:
         fps = clip.fps
@@ -283,7 +286,7 @@ def write_gif_with_image_io(clip, filename, fps=None, opt=0, loop=0,
         palettesize=colors,
         loop=loop
         )
-    logger(message='MoviePy - Building file %s with imageio.' % filename)
+    logger.info(msg='MoviePy - Building file %s with imageio.' % filename)
 
     for frame in clip.iter_frames(fps=fps, logger=logger, dtype='uint8'):
 
