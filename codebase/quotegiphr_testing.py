@@ -1,6 +1,6 @@
 import unittest
 from datetime import datetime
-from quotegipher import gifEngine, getImage, SrtFile, SrtLine, SrtTime
+from quotegipher import gifEngine, getImage, SrtFile
 import os.path
 
 
@@ -17,9 +17,7 @@ class TestQGiphrMethods(unittest.TestCase):
             srtfileloc = directory + movie + ".srt"
             gif_outfileloc = (outfile+"GIF_{}.gif").format(datetime.now().strftime("%H_%M_%S"))
             jpg_outfileloc = (outfile+"JPG_{}.jpg").format(datetime.now().strftime("%H_%M_%S"))
-
             getImage(starttime, videofileloc, jpg_outfileloc)
-            
             retcode = gifEngine(starttime, endtime, videofileloc, srtfileloc,  gif_outfileloc)
 
             # The Last Time I Saw Paris.mp4 is renamed and should fail to be found.
