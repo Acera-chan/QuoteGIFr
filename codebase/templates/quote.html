@@ -32,19 +32,25 @@
 {% if quoteForms %}
     <!-- Table which contains all of the quote select forms -->
     <table id='quoteSelectForms'>
+        <tr>
+            <td>
+                Here are the quotes we found for <i>"{{ quoteRequest }}"</i>
+            </td>
+        </tr>
+        
         <!-- Potentially many quote select forms -->
-        {% for result in quoteForms %}
-            <tr>
+        {% for result in quoteForms %}  
+            <tr>     
                 <td>
                     <!-- Form used for selecting a quote -->
                     <form class='quoteSelectForm' method='POST' action='{{ url_for('generateGIFpage') }}'>
                         <fieldset>
-                            <legend>Here are the quotes we found for "{{ quoteRequest }}"</legend>
+                            <legend></legend>
                             <!-- result[0] = quote displayed-->
                             {{ result[0] }}
 
                             <!-- result[1].movieName() = hidden form input which stores uid of db Timestamp object from which 
-                                 the quote comes from  -->
+                                    the quote comes from  -->
                             {{ result[1].quoteID }}
 
                             <!-- result[1].submit() = submit button -->

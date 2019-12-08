@@ -35,10 +35,15 @@
 {% if filmForms %}
     <!-- Table which contains all of the film select forms -->
     <table id='filmSelectForms'>
-        <tr>Here are the movies we found for <i>"{{ filmRequest }}"</i></tr>
+        <tr>
+            <td>
+                Here are the movies we found for <i>"{{ filmRequest }}"</i>
+            </td>
+        </tr>
+
         <!-- Potentially many film select forms -->
-        {% for result in filmForms %}
-            <tr>
+        {% for result in filmForms %}   
+            <tr>   
                 <td>
                     <!-- Form used for selecting a film -->
                     <form class='filmSelectForm' method='POST' action={{ url_for('quotepage') }}>
@@ -53,7 +58,7 @@
                             {{ result[1].submit() }}
                         </fieldset>
                     </form>
-                </td>
+                </td>   
             </tr>
         {% endfor %}
     </table>       

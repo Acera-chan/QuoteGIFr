@@ -42,18 +42,15 @@ content{
 #filmSearchForm, #quoteSearchForm {
     position:absolute;
     text-align:center;
-    width:50vw;    
+    width:100vw;    
     top:25vh;
-    left:25vw;    
     z-index:-1;   
 }
 
 #filmSelectForms, #quoteSelectForms {
     position:absolute;
     text-align:center;
-    width:55vw;
-    left:25vw;
-    margin-bottom:16vh;
+    width:100vw;
     top:55vh;
     z-index:-1;
 }
