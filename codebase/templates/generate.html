@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% block content %}
-
-<img src={{ url_for("static", filename = gif_outfileloc) }} class="gif_display body">
-
+<div class="gif_display">
+    <img class="img-fluid mx-auto my-auto d-block" width="480" height="360" src={{ url_for("static", filename = gif_outfileloc) }}>   
+</div>
 {% endblock content %}
