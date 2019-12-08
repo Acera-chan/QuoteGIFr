@@ -4,7 +4,7 @@
     Purpose: Stylesheet for html in the QuoteGIF project
 */
 header {
-    position: fixed;
+    position:fixed;
     top: 0px;
     left: 0px;
     background-color: #341881;
@@ -12,53 +12,74 @@ header {
     color: #ffffee;
     padding-top: 0vh;
     width: 100vw;
-    height: 12vh;
+    height: 15vh;
     text-align: center;
     vertical-align: 10%;
     font-size: 8vh;
-
     background-image: url("QGIFr.png");
     background-size: contain;
     background-position: center left;
     background-repeat: no-repeat;
+
 }
-body {
-    position: relative;    
+body {    
+    color: #ffffee;
+    background-color: #8968e3;
+}
+content{
+
+    z-index:-1;   
     font-family: "Corbel";
     font-size: large;
     color: #ffffee;
     background-color: #8968e3;
     background-repeat: no-repeat;
     background-size: cover;
-}
+    top:15vh;
+    bottom:15vh;
 
+}
 #filmSearchForm, #quoteSearchForm {
     position:absolute;
     text-align:center;
-    width:100vw;
+    width:50vw;    
     top:25vh;
+    left:25vw;    
+    z-index:-1;   
 }
 
 #filmSelectForms, #quoteSelectForms {
     position:absolute;
     text-align:center;
-    width:100vw;
-    top:45vh;
+    width:55vw;
+    left:25vw;
+    margin-bottom:16vh;
+    top:55vh;
+    z-index:-1;
 }
 
-#errorMsg {
+.errorMsg {
     position:absolute;
     text-align:center;
     width:100vw;
     top:45vh;
 }
-/*footer{
-    position: fixed;
+
+footer{
+    position:fixed;
     bottom: 0px;
     left: 0px;
     width: 100vw;
     height: 15vh;
+    background-color: #341881;
 }
+
+.gif_display{
+    display:flex;
+    align-items:center;
+}
+
+/*
 table{
     position: fixed;
     top: 40vh;
@@ -126,12 +147,9 @@ table{
     width:10vw;
     left:20vw;
     font-size:3ex;
-}
-.gif_display {
-    text-align:center;
-    max-width:100%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
 }*/
+
+
+
+
+
