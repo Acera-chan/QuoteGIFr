@@ -11,8 +11,5 @@ CSCI540 FA2019 Project
 
 ## Using app.py (The Flask app: aka the backend of our QuoteGIFr web application)
 1. app was built on Python 3.7.4
-1. pip install Flask version 1.1.1 (command is "pip install Flask" from the command line since 1.1.1 should be the latest version).
-2. pip install WTForms version 2.2.1 (command should be "pip install WTForms" from the command line since 2.2.1 should be the latest version).
-3. pip install flask_wtf
-4. pip install flask_sqlalchemy
-5. run command "python app.py" from within the codebase directory on the command line, then go to localhost:5000 in your browser, and you should see the homepage being hosted on your local machine.
+2. run command "pip install -r requirements.txt" from the main directory (with requirements.txt present). This will install all necessary modules.
+3. run command "python app.py" from within the codebase directory on the command line, then go to localhost:5000 in your browser, and you should see the homepage being hosted on your local machine.
