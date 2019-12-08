@@ -8,11 +8,15 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, and_
 from datetime import datetime  # used to create filename of gif in this context
 from quotegipher import gifEngine, getImage
+import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '***REMOVED***'
+
+db_username = os.getenv('QGIFr_AWS_USERNAME')
+db_password = os.getenv('QGIFr_AWS_PASSWORD')
+app.config['SECRET_KEY'] = os.getenv('QGIFr_SECRET_KEY')
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://***REMOVED***:***REMOVED***@quotegifr-db2.csj8xbgbgcjk.us-east-1.rds.amazonaws.com:3306/quotegifrdb?charset=utf8mb4'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{username}:{password}@quotegifr-db2.csj8xbgbgcjk.us-east-1.rds.amazonaws.com:3306/quotegifrdb?charset=utf8mb4'.format(username=db_username, password=db_password)
 
 db = SQLAlchemy(app)
 
