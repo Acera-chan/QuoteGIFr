@@ -10,9 +10,9 @@ header {
     background-color: #341881;
     font-family: "Varela Round";
     color: #ffffee;
-    padding-top: 5vh;
+    padding-top: 0vh;
     width: 100vw;
-    height: 10vh;
+    height: 12vh;
     text-align: center;
     vertical-align: 10%;
     font-size: 8vh;
@@ -27,12 +27,32 @@ body {
     font-family: "Corbel";
     font-size: large;
     color: #ffffee;
-    /*background-image: url("CSS Background2.jpg"); */
     background-color: #8968e3;
     background-repeat: no-repeat;
     background-size: cover;
 }
-footer{
+
+#filmSearchForm, #quoteSearchForm {
+    position:absolute;
+    text-align:center;
+    width:100vw;
+    top:25vh;
+}
+
+#filmSelectForms, #quoteSelectForms {
+    position:absolute;
+    text-align:center;
+    width:100vw;
+    top:45vh;
+}
+
+#errorMsg {
+    position:absolute;
+    text-align:center;
+    width:100vw;
+    top:45vh;
+}
+/*footer{
     position: fixed;
     bottom: 0px;
     left: 0px;
@@ -114,4 +134,4 @@ table{
     margin-left: auto;
     margin-right: auto;
     width: 50%;
-}
+}*/
