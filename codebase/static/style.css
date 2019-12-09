@@ -27,18 +27,14 @@ body {
     background-color: #8968e3;
 }
 content{
-
-    z-index:-1;   
     font-family: "Corbel";
     font-size: large;
     color: #ffffee;
     background-color: #8968e3;
     background-repeat: no-repeat;
     background-size: cover;
-    top:15vh;
-    bottom:15vh;
-
 }
+
 #filmSearchForm, #quoteSearchForm {
     position:absolute;
     text-align:center;
@@ -50,8 +46,9 @@ content{
 #filmSelectForms, #quoteSelectForms {
     position:absolute;
     text-align:center;
-    width:100vw;
-    top:55vh;
+    width:50vw;
+    top:50vh;
+    left:25vw;
     z-index:-1;
 }
 
@@ -74,6 +71,19 @@ footer{
 .gif_display{
     display:flex;
     align-items:center;
+}
+
+#film, #quote {
+    text-align: left;
+}
+
+#selectBtn {
+    width:5vw;
+    text-align: right;
+}
+
+tr:nth-child(even) {
+    background-color: #6c4bc7;
 }
 
 /*

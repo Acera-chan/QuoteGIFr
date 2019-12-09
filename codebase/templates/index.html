@@ -36,30 +36,30 @@
     <!-- Table which contains all of the film select forms -->
     <table id='filmSelectForms'>
         <tr>
-            <td>
+            <td colspan="2">
                 Here are the movies we found for <i>"{{ filmRequest }}"</i>
             </td>
         </tr>
 
         <!-- Potentially many film select forms -->
         {% for result in filmForms %}   
-            <tr>   
-                <td>
-                    <!-- Form used for selecting a film -->
-                    <form class='filmSelectForm' method='POST' action={{ url_for('quotepage') }}>
-                        <fieldset>
-                            <!-- result[0].title = movie name displayed -->
-                            {{ result[0] }}
+        <tr>
+            <td id='film'>
+                <!-- result[0].title = movie name displayed -->
+                {{ result[0] }}
+            </td>
 
-                            <!-- result[1].movieID() = hidden form which stores a Movie object's uid -->
-                            {{ result[1].movieID() }}
+            <td id='selectBtn'>
+                <!-- Form used for selecting a film -->
+                <form class='filmSelectForm' method='POST' action={{ url_for('quotepage') }}>
+                    <!-- result[1].movieID() = hidden form which stores a Movie object's uid -->
+                    {{ result[1].movieID() }}
 
-                            <!-- result[1].submit() = submit button -->
-                            {{ result[1].submit() }}
-                        </fieldset>
-                    </form>
-                </td>   
-            </tr>
+                    <!-- result[1].submit() = submit button -->
+                    {{ result[1].submit() }}
+                </form>
+            </td>        
+        </tr>
         {% endfor %}
     </table>       
 {% endif %}

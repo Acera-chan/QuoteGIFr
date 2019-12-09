@@ -33,32 +33,31 @@
     <!-- Table which contains all of the quote select forms -->
     <table id='quoteSelectForms'>
         <tr>
-            <td>
+            <td colspan="2">
                 Here are the quotes we found for <i>"{{ quoteRequest }}"</i>
             </td>
         </tr>
         
         <!-- Potentially many quote select forms -->
         {% for result in quoteForms %}  
-            <tr>     
-                <td>
-                    <!-- Form used for selecting a quote -->
-                    <form class='quoteSelectForm' method='POST' action='{{ url_for('generateGIFpage') }}'>
-                        <fieldset>
-                            <legend></legend>
-                            <!-- result[0] = quote displayed-->
-                            {{ result[0] }}
+        <tr>
+            <td id='quote'>
+                <!-- result[0] = quote displayed -->
+                {{ result[0] }}
+            </td> 
 
-                            <!-- result[1].movieName() = hidden form input which stores uid of db Timestamp object from which 
-                                    the quote comes from  -->
-                            {{ result[1].quoteID }}
+            <td id='selectBtn'>
+                <!-- Form used for selecting a quote -->
+                <form class='quoteSelectForm' method='POST' action='{{ url_for('generateGIFpage') }}'>
+                    <!-- result[1].movieName() = hidden form input which stores uid of db Timestamp object from which 
+                            the quote comes from  -->
+                    {{ result[1].quoteID }}
 
-                            <!-- result[1].submit() = submit button -->
-                            {{ result[1].submit() }}
-                        </fieldset>
-                    </form>
-                </td>
-            </tr>
+                    <!-- result[1].submit() = submit button -->
+                    {{ result[1].submit() }}
+                </form>
+            </td>
+        </tr>
         {% endfor %}
     </table>
 {% endif %}

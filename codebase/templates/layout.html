@@ -23,9 +23,11 @@
         {% endif %}
     </head>
     <body>
-        <a href='{{ url_for('homepage') }}'> <header id='logo' >
-            QuoteGIFr
-        </header></a>
+        <a href='{{ url_for('homepage') }}'>
+            <header id='logo' >
+                QuoteGIFr
+            </header>
+        </a>
         <content>
             <!-- block which 'index.html' and 'quote.html' will extend -->
             {% block content %}{% endblock content%}
