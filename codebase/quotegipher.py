@@ -74,20 +74,19 @@ class SrtFile:
                         line = line.replace("<i>", "")
                     if("</i>" in line):
                         line = line.replace("</i>", "")
-                    if("{i}" in line):
+                    if("{{i}}" in line):
                         line = line.replace("{{i}}", "")
                     if("{{\\i}}" in line):
                         line = line.replace("{{\\i}}", "")
                     # do some parsing to avoid long lines
-                    else:
-                        for subline in line.split(sep='\r\n'):
-                            if len(subline) > 44:
-                                linebreak = subline.find(' ', int((len(subline))/2), len(subline)-1)
-                                subline = subline[:linebreak]+'\r\n'+subline[linebreak+1:]  # linebreak+1 removes space between words
-                            if subline != '':
-                                subline = subline + "\r\n"
-                            if subline != '':
-                                captionstrings.append(subline)
+                    for subline in line.split(sep='\n'):
+                        if len(subline) > 44:
+                            linebreak = subline.find(' ', int((len(subline))/2), len(subline)-1)
+                            subline = subline[:linebreak]+'\n'+subline[linebreak+1:]  # linebreak+1 removes space between words
+                        if subline != '':
+                            subline = subline + "\n"
+                        if subline != '':
+                            captionstrings.append(subline)
                 intlinetracker = intlinetracker + 1
         except FileNotFoundError as fnf_error:
             raise fnf_error

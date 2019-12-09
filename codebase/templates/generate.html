@@ -6,5 +6,6 @@
 <form id='uploadGifForm' action = {{ url_for('generateGIFpage') }} target = '_blank' method='POST'>
     {{ form.gifLocation() }}
     {{ form.submit() }}
+    {{ form.csrf_token }}
 </form>
 {% endblock content %}
