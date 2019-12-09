@@ -41,7 +41,7 @@ body {
     padding-top: 15vh;  
     color: #ffffee;
     background-color: #8968e3;
-}
+
 content{
 
     z-index:-1;   
@@ -92,7 +92,19 @@ content{
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    padding-top: 10vh;
+}
+
+#film, #quote {
+    text-align: left;
+}
+
+#selectBtn {
+    width:5vw;
+    text-align: right;
+}
+
+tr:nth-child(even) {
+    background-color: #6c4bc7;
 }
 
 /*
