@@ -3,10 +3,7 @@
     Date Last Modified: 11/12/19
     Purpose: Stylesheet for html in the QuoteGIF project
 */
-header {
-    position:fixed;
-    top: 0px;
-    left: 0px;
+.qgif-header {
     background-color: #341881;
     font-family: "Varela Round";
     color: #ffffee;
@@ -22,7 +19,8 @@ header {
     background-repeat: no-repeat;
 
 }
-body {    
+body {  
+    padding: 15vh;  
     color: #ffffee;
     background-color: #8968e3;
 }
@@ -62,8 +60,8 @@ content{
     top:45vh;
 }
 
-footer{
-    position:fixed;
+.qgif-footer{
+    
     bottom: 0px;
     left: 0px;
     width: 100vw;
@@ -72,8 +70,9 @@ footer{
 }
 
 .gif_display{
-    display:flex;
-    align-items:center;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 /*
