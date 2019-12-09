@@ -23,7 +23,7 @@
         {% endif %}
     </head>
     <body>
-        <nav class="navbar navbar-default fixed-top">
+        <nav class="navbar navbar-default fixed-top qgif-header">
             <a href='{{ url_for('homepage') }}'>
                 <div class="navbar-header qgif-header" id='logo' >
                     QuoteGIFr
@@ -34,7 +34,7 @@
             <!-- block which 'index.html' and 'quote.html' will extend -->
             {% block content %}{% endblock content%}
         </content>
-        <nav class="navbar navbar-default fixed-bottom">
+        <nav class="navbar navbar-default fixed-bottom qgif-footer">
             <div class="navbar-footer qgif-footer">
                 <button type = "button" onClick ="javascript:history.back(1)">Go Back From Whence you Came</button>
                 <button type = "button" onClick = "window.location.href='{{ url_for('homepage') }}'">Home</button>

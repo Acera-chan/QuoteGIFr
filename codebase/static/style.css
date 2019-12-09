@@ -17,8 +17,22 @@
     background-size: contain;
     background-position: center left;
     background-repeat: no-repeat;
+    margin:0px;
+    border:0px;
+    padding:0px;
+    top:0px;
+    left:0px;
+    
 
 }
+
+nav{
+    margin:0px;
+    border:0px;
+    padding:0px;
+    
+}
+
 body {  
     padding: 15vh;  
     color: #ffffee;
@@ -67,6 +81,7 @@ content{
     width: 100vw;
     height: 15vh;
     background-color: #341881;
+    
 }
 
 .gif_display{
