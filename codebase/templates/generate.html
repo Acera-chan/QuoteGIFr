@@ -3,4 +3,8 @@
 <div class="gif_display center-align">
     <img class="img-fluid mx-auto my-auto d-block" width="480" height="360" src={{ url_for("static", filename = gif_outfileloc) }}>   
 </div>
+<form id='uploadGifForm' action = {{ url_for('generateGIFpage') }} target = '_blank' method='POST'>
+    {{ form.gifLocation() }}
+    {{ form.submit() }}
+</form>
 {% endblock content %}

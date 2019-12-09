@@ -3,11 +3,13 @@
 
 
 from flask import Flask, render_template, request, redirect, url_for
-from forms import MovieForm, QuoteForm, SelectMovieForm, SelectQuoteForm
+from forms import MovieForm, QuoteForm, SelectMovieForm, SelectQuoteForm, FileLocationForm
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, and_
 from datetime import datetime  # used to create filename of gif in this context
-from quotegipher import gifEngine, getImage
+from quotegipher import gifEngine, getImage 
+from giphypop import Giphy  # necessary for uploading to giphy.com
+import webbrowser  # used to open giphy.com URL after upload
 import os
 
 app = Flask(__name__)
@@ -150,10 +152,24 @@ def generateGIFpage():
             gif_outfileloc = (outfile + "/GIF_{}.gif").format(datetime.now().strftime("%H_%M_%S"))
             retcode = gifEngine(starttime, endtime, videofileloc, strfileloc,  gif_outfileloc)
             if retcode == 0:
-                return render_template('generate.html', gif_outfileloc=gif_outfileloc[7:])
+                form =FileLocationForm(gifLocation = gif_outfileloc)
+                return render_template('generate.html', gif_outfileloc=gif_outfileloc[7:], form=form)
             else:
                 return redirect(url_for('homepage')) # This needs to go to an error page of some kind, GIF was not created
     return redirect(url_for('homepage'))
+
+    @app.route("/upload", methods = ["GET", "POST"])
+    def generateGIFpage():
+        if form.request.method == 'POST':
+            if request.form.get('gifLocation'):
+                gifLocation = request.form.get('gifLocation')
+                giphyobj = Giphy(API_KEY)
+                # response (below) is the URL for our giphy upload
+                response = giphyobj.upload([], gifLocation, username="QuoteGIFr")
+
+                render_template('upload.html', response = response)
+        redirect(url_for('homepage'))
+
 
 # Can now run app directly ('python app.py' command in bash) without 
 # having to set Flask environment variables every time (ie. 'export FLASK_APP=app.py' 
