@@ -26,6 +26,10 @@
 
 }
 
+a:hover{
+    display:none;
+}
+
 nav{
     margin:0px;
     border:0px;
@@ -33,7 +37,7 @@ nav{
 }
 
 body {  
-    padding: 15vh;  
+    padding-top: 15vh;  
     color: #ffffee;
     background-color: #8968e3;
 }
