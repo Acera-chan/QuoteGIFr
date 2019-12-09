@@ -124,7 +124,7 @@ def quotepage():
 
             # form for submitting a quote request (search bar, essentially)
             form = QuoteForm(movieID=movieID)
-            
+
             return render_template('quote.html', title='Quote', form=form, movieName=movieName)
 
     # redirect the user if they didn't select a movie from "homepage" or search for a quote on "quotepage" 
@@ -132,7 +132,7 @@ def quotepage():
     return redirect(url_for('homepage'))
 
 
-@app.route("/generate", methods=["GET", "POST"])
+@app.route("/generate", methods = ["GET", "POST"])
 def generateGIFpage():
     # if post data submitted, print it out (will use this data to generate a gif)
     if request.method == 'POST':
@@ -162,15 +162,15 @@ def generateGIFpage():
 
     @app.route("/upload", methods=["GET", "POST"])
     def generateGIFpage():
-        form = FileLocationForm()
-        if form.validate_on_submit():
-            gifLocation = request.form['gifLocation']
-            giphyobj = Giphy('iTmKRrpWJUCpn6nWMSIp42gmkXA6hpfh')
-            # response (below) is the URL for our giphy upload
-            response = giphyobj.upload([], gifLocation, username="QuoteGIFr")
-            render_template('upload.html', response=response)
-        else:
-            redirect(url_for('homepage'))
+        if request.method == 'POST':
+            print(request.form.errors)
+            if request.form.get('gifLocation'):
+                gifLocation = request.form.get('gifLocation')
+                giphyobj = Giphy('iTmKRrpWJUCpn6nWMSIp42gmkXA6hpfh')
+                # response (below) is the URL for our giphy upload
+                response = giphyobj.upload([], gifLocation, username="QuoteGIFr")
+                return render_template('upload.html', response=response)
+        return redirect(url_for('homepage'))
 
 
 # Can now run app directly ('python app.py' command in bash) without 

@@ -8,22 +8,12 @@
     font-family: "Varela Round";
     color: #ffffee;
     padding-top: 0vh;
-    width: 100vw;
+    font-size: 10vh;
     height: 15vh;
     text-align: center;
-    vertical-align: 10%;
-    font-size: 8vh;
-    background-image: url("QGIFr.png");
     background-size: contain;
     background-position: center left;
-    background-repeat: no-repeat;
-    margin:0px;
-    border:0px;
-    padding:0px;
-    top:0px;
-    left:0px;
-    
-
+    background-repeat: no-repeat; 
 }
 
 a:hover{
@@ -113,76 +103,6 @@ tr:nth-child(even) {
     top: 5vh;
     text-align: center;
 }
-
-/*
-table{
-    position: fixed;
-    top: 40vh;
-    left: 40%;
-}
-.lbl_movieName{
-    float:inline-start;
-    padding: .5em;
-    font-family: 'Corbel';
-}
-.tb_movieName{
-    border: none;
-    padding: .5em;
-    width: 25vw;
-    font-family: 'Corbel';
-}
-.btn_movieName{
-    float:inline-end;
-    border: none;
-    padding: .5em;
-    cursor: pointer;
-    width: 25vw;
-    font-family: 'Corbel';
-}
-#filmSearchForm{
-    position: fixed;
-    top: 40vh;
-    left: 20vw;
-    right: 20vw;
-}
-#filmSelectForms{
-    position: fixed;
-    top: 55vh;
-    left: 40%;
-}
-#quoteSearchForm{
-    position: fixed;
-    top: 40vh;
-    left: 40%;
-}
-#quoteSelectForms{
-    position: fixed;
-    top: 55vh;
-    left: 40%;
-}
-#film_select {
-    position:absolute;
-    width:100vw;
-}
-
-#film_select_form {
-    position:relative;
-    left:25vw;
-    
-}
-#film_select_field {
-    text-align:center;
-    font-size:3ex;
-    width:50vw;
-}
-
-#submit_btn {
-    position:relative;
-    text-align:center;
-    width:10vw;
-    left:20vw;
-    font-size:3ex;
-}*/
 
 
 
