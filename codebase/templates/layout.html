@@ -35,8 +35,8 @@
             {% block content %}{% endblock content%}
         </content>
         <nav class="navbar navbar-default fixed-bottom qgif-footer">
-            <div class="navbar-footer qgif-footer">
-                <button type = "button" onClick ="javascript:history.back(1)">Go Back From Whence you Came</button>
+            <div id='footerBtns' class="navbar-footer qgif-footer">
+                <button type = "button" onClick ="javascript:history.back(1)">Previous</button>
                 <button type = "button" onClick = "window.location.href='{{ url_for('homepage') }}'">Home</button>
             </div>
         </nav>

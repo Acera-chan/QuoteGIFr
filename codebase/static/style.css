@@ -107,6 +107,13 @@ tr:nth-child(even) {
     background-color: #6c4bc7;
 }
 
+#footerBtns {
+    position: absolute;
+    width:100vw;
+    top: 5vh;
+    text-align: center;
+}
+
 /*
 table{
     position: fixed;
