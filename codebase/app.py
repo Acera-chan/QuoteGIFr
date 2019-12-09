@@ -149,6 +149,8 @@ def generateGIFpage():
             strfileloc = 'media/' + movieName + '.srt'
 
             outfile = "static/outfile"
+            if not os.path.exists(outfile+"/"):
+                os.mkdir(outfile+"/")
             gif_outfileloc = (outfile + "/GIF_{}.gif").format(datetime.now().strftime("%H_%M_%S"))
             retcode = gifEngine(starttime, endtime, videofileloc, strfileloc,  gif_outfileloc)
             if retcode == 0:
