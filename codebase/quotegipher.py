@@ -74,10 +74,10 @@ class SrtFile:
                         line = line.replace("<i>", "")
                     if("</i>" in line):
                         line = line.replace("</i>", "")
-                    if("\{i\}" in line):
-                        line = line.replace("\{i\}", "")
-                    if("\{/i\}" in line):
-                        line = line.replace("\{/i\}", "")
+                    if("{i}" in line):
+                        line = line.replace("{{i}}", "")
+                    if("{{\\i}}" in line):
+                        line = line.replace("{{\\i}}", "")
                     # do some parsing to avoid long lines
                     else:
                         for subline in line.split(sep='\r\n'):
