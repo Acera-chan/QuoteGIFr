@@ -8,7 +8,7 @@
 {% extends 'layout.html' %}
 {% block content %}
 <!-- Form used for searching for a quote -->
-<form id='quoteSearchForm' method='POST'>
+<form class='quoteSearchForm' method='POST'>
     {{ form.hidden_tag() }}
     <fieldset>
         <legend>Now Search for a Quote in "{{ movieName }}"</legend>

@@ -45,7 +45,7 @@
         {% for result in filmForms %}   
         <tr>
             <td id='movieImg'>
-                <img src={{ url_for('static', filename=result[0])}} class="d-inline-block image-flex">
+                <img src={{ url_for('static', filename=result[0])}} class="image-flex d-none d-sm-inline">
             </td>
             <td id='film'>
                 <!-- result[0].title = movie name displayed -->
