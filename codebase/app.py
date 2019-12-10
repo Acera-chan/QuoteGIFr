@@ -69,7 +69,8 @@ def homepage():
             filmForms = []
             # create the selection forms
             for result in filmResults:
-                filmForms.append([result.title, SelectMovieForm(movieID=result.uid)])
+                movieImg = "images/" + result.title + ".jpg"
+                filmForms.append([movieImg, result.title, SelectMovieForm(movieID=result.uid)])
 
             if filmForms == []:
                 msg = 'Sorry, we couldn\'t find anything. Perhaps try searching again'

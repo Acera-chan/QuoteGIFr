@@ -31,6 +31,7 @@ class SelectQuoteForm(FlaskForm):
     quoteID = HiddenField()
     submit = SubmitField('Select')
 
+
 # class for sending along a file path used for uploading a gif
 class FileLocationForm(FlaskForm):
     gifLocation = HiddenField()

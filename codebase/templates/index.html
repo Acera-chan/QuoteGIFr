@@ -44,19 +44,22 @@
         <!-- Potentially many film select forms -->
         {% for result in filmForms %}   
         <tr>
+            <td id='movieImg'>
+                <img src={{ url_for('static', filename=result[0])}} class="d-inline-block image-flex">
+            </td>
             <td id='film'>
                 <!-- result[0].title = movie name displayed -->
-                {{ result[0] }}
+                {{ result[1] }}
             </td>
 
             <td id='selectBtn'>
                 <!-- Form used for selecting a film -->
                 <form class='filmSelectForm' method='POST' action={{ url_for('quotepage') }}>
                     <!-- result[1].movieID() = hidden form which stores a Movie object's uid -->
-                    {{ result[1].movieID() }}
+                    {{ result[2].movieID() }}
 
                     <!-- result[1].submit() = submit button -->
-                    {{ result[1].submit() }}
+                    {{ result[2].submit() }}
                 </form>
             </td>        
         </tr>
