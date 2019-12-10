@@ -33,7 +33,7 @@
     <!-- Table which contains all of the quote select forms -->
     <table class = 'table quoteSelectForms'>
         <tr>
-            <td colspan="2">
+            <td colspan="3">
                 Here are the quotes we found for <i>"{{ quoteRequest }}"</i>
             </td>
         </tr>
@@ -41,9 +41,12 @@
         <!-- Potentially many quote select forms -->
         {% for result in quoteForms %}  
         <tr>
+            <td id='quoteImg'>
+                    <img src={{ url_for('static', filename=result[0])}} class="image-flex d-none d-sm-inline">
+            </td>
             <td id='quote'>
                 <!-- result[0] = quote displayed -->
-                {{ result[0] }}
+                {{ result[1] }}
             </td> 
 
             <td id='selectBtn'>
@@ -51,10 +54,10 @@
                 <form class='quoteSelectForm' method='POST' action='{{ url_for('generateGIFpage') }}'>
                     <!-- result[1].movieName() = hidden form input which stores uid of db Timestamp object from which 
                             the quote comes from  -->
-                    {{ result[1].quoteID }}
+                    {{ result[2].quoteID }}
 
                     <!-- result[1].submit() = submit button -->
-                    {{ result[1].submit() }}
+                    {{ result[2].submit() }}
                 </form>
             </td>
         </tr>

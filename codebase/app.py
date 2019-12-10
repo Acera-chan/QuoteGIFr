@@ -109,7 +109,9 @@ def quotepage():
             # stores selection forms for all of the quote results the db returns
             quoteForms = []
             for result in quoteResults:
-                quoteForms.append([result.subtitle, SelectQuoteForm(quoteID=result.uid)])
+                quoteImg = 'images/' + movieName + "/" + result.startime.replace(":", "_") + ".jpg"
+                print(quoteImg)
+                quoteForms.append([quoteImg, result.subtitle, SelectQuoteForm(quoteID=result.uid)])
             
             if quoteForms == []:
                 msg = 'Sorry, we couldn\'t find anything. Perhaps try searching again'
