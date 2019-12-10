@@ -31,7 +31,8 @@ body {
     color: #ffffee;
     background-color: #8968e3;
 }
-content {
+.content {
+
     z-index:-1;   
     font-family: "Corbel";
     font-size: large;
@@ -39,36 +40,33 @@ content {
     background-color: #8968e3;
     background-repeat: no-repeat;
     background-size: cover;
-    top:15vh;
-    bottom:15vh;
+    
+    margin-bottom:15vh;
 }
 
-#filmSearchForm, #quoteSearchForm {
-    position:absolute;
+.filmSearchForm, .quoteSearchForm {
     text-align:center;
     width:60vw;    
-    top:25vh;
-    left:20vw;
+    margin-top:10vh;
+    margin-left:20vw;
     z-index:-1;   
 }
 
-#filmSelectForms, #quoteSelectForms {
-    position:absolute;
+.filmSelectForms, .quoteSelectForms {
     font-family: "Corbel";
     font-size: large;
     color: #ffffee;
     text-align:center;
     width:50vw;
-    top:55vh;
-    left:25vw;
+    margin-top:10vh;
+    margin-left:25vw;
     z-index:-1;
 }
 
 .errorMsg {
-    position:absolute;
     text-align:center;
     width:100vw;
-    top:45vh;
+    margin-top:15vh;
 }
 
 .qgif-footer{
