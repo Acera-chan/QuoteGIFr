@@ -48,7 +48,8 @@ body {
     text-align:center;
     width:60vw;    
     margin-top:10vh;
-    margin-left:20vw;
+    margin: auto;
+    width: 50%; 
     z-index:-1;   
 }
 
@@ -59,7 +60,8 @@ body {
     text-align:center;
     width:50vw;
     margin-top:10vh;
-    margin-left:25vw;
+    margin: auto;
+    width: 50%; 
     z-index:-1;
 }
 
