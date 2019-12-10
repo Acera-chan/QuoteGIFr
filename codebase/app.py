@@ -157,20 +157,8 @@ def generateGIFpage():
                 form = FileLocationForm(gifLocation=gif_outfileloc)
                 return render_template('generate.html', gif_outfileloc=gif_outfileloc[7:], form=form)
             else:
-                return redirect(url_for('homepage')) # This needs to go to an error page of some kind, GIF was not created
+                return render_template('error.html') # This needs to go to an error page of some kind, GIF was not created
     return redirect(url_for('homepage'))
-
-    @app.route("/upload", methods=["GET", "POST"])
-    def generateGIFpage():
-        if request.method == 'POST':
-            print(request.form.errors)
-            if request.form.get('gifLocation'):
-                gifLocation = request.form.get('gifLocation')
-                giphyobj = Giphy('iTmKRrpWJUCpn6nWMSIp42gmkXA6hpfh')
-                # response (below) is the URL for our giphy upload
-                response = giphyobj.upload([], gifLocation, username="QuoteGIFr")
-                return render_template('upload.html', response=response)
-        return redirect(url_for('homepage'))
 
 
 # Can now run app directly ('python app.py' command in bash) without 
