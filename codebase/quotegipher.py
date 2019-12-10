@@ -9,17 +9,23 @@ import prolog
 #  Creates a gif from the videoFileLoc with subtitles from strFileLoc
 #  Raises IOError or OSError from moviepy/gif_writers
 def gifEngine(starttime, endtime, videofileloc, srtfileloc, outfileloc, logger='gifEngine.log'):
+    # initializing logger
     logging.basicConfig(filename=logger, level=logging.DEBUG)
     logger = logging.getLogger(__name__)
     prolog.basic_config()
     # creating the initial GIF
+    # try/except because of file IO
     try:
+        # generator is specifying format of subtitles for sub
         generator = lambda txt: TextClip(txt, font='Impact', fontsize=28, color='white')
         video = VideoFileClip(videofileloc)
         sub = SubtitlesClip(srtfileloc, generator).set_position(("center", "bottom"), relative=True)
+        # composite overlays sub onto video
         composite = CompositeVideoClip([video, sub])
-        composite = composite.subclip(starttime, endtime)    
-        composite.write_gif(outfileloc, program='ffmpeg', opt='palettegen', logger=logger, verbose=True)  # using new palettegen opt
+        # trim clip to desired length
+        composite = composite.subclip(starttime, endtime)
+        # using new palettegen opt
+        composite.write_gif(outfileloc, program='ffmpeg', opt='palettegen', logger=logger, verbose=True)
         return 0
     except (IOError, OSError) as err:
         return err

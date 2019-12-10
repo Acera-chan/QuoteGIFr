@@ -1,4 +1,5 @@
-from quotegipher import SrtFile  # Custom class for parsing and manipulating SRTs
+from quotegipher import SrtFile, SrtLine, SrtTime, getImage  # Custom class for parsing and manipulating SRTs
+import os
 
 
 def main():
@@ -7,10 +8,23 @@ def main():
     directory = "G:/Users/Tempest3/Documents/USCU/Fall 2019/Software Engineering/QuoteGIFr/github_repo/QuoteGIFr/codebase/media/"
 
     for movie in movieNames:
-        fileloc = directory + movie + ".srt"
-        #outfileloc = directory + movie + "-Copy.srt"
-        srttest = SrtFile(fileloc)
-        srttest.writeSRT(fileloc)
+        # srtfileloc = directory + movie + ".srt"
+        mp4fileloc = directory + movie + ".mp4"
+        outfileloc = directory + movie + "/"
+        if not os.path.exists(outfileloc):
+            os.mkdir(outfileloc)
+        # srttest = SrtFile(srtfileloc)
+        starttime = ""
+        if movie == "An Ideal Husband 1947":
+            starttime = "00:00:20,000"
+        elif movie == "Dressed to Kill 1946":
+            starttime = "00:00:33,000"
+        print(starttime)
+        outstring = directory + movie + ".jpg"
+        print(outstring)
+        print(getImage(starttime, mp4fileloc, outstring))
+
+        # srttest.writeSRT(fileloc)
 
     # Now, hopefully, I've removed all italic formatting from the SRT
 

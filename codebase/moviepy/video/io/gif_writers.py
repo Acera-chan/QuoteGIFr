@@ -174,7 +174,7 @@ def write_gif(clip, filename, fps=None, program= 'ImageMagick',
     if program == "ffmpeg":
         popen_params["stdin"] = sp.PIPE
         popen_params["stdout"] = DEVNULL
-        
+
         if opt == 'palettegen':
             proc1 = sp.Popen(cmd1+[ '-pix_fmt', ('rgba' if withmask else 'rgb24'),
                             '-filter_complex', "[0:v] fps=%d,scale=w=%d:h=-1,"
