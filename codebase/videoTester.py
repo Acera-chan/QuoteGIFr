@@ -10,7 +10,7 @@ API_KEY = 'iTmKRrpWJUCpn6nWMSIp42gmkXA6hpfh'
 
 def main():
     # the five variables defined below are what gifEngine needs
-    starttime = "00:57:46,128"
+    starttime = "00:57:46,129"
     endtime = "00:57:49,086"
     # set these to appropriate locations, eventually will be passed in from db
     movieNames = ["An Ideal Husband 1947"]
