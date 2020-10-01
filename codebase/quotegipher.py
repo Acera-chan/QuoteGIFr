@@ -88,7 +88,7 @@ class SrtFile:
                         line = line.replace("{{\\i}}", "")
                     # do some parsing to avoid long lines
                     for subline in line.split(sep='\n'):
-                        if len(subline) > 44:
+                        if len(subline) > 28:
                             linebreak = subline.find(' ', int((len(subline))/2), len(subline)-1)
                             subline = subline[:linebreak]+'\n'+subline[linebreak+1:]  # linebreak+1 removes space between words
                         if subline != '':

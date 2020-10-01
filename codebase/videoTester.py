@@ -10,30 +10,23 @@ API_KEY = 'iTmKRrpWJUCpn6nWMSIp42gmkXA6hpfh'
 
 def main():
     # the five variables defined below are what gifEngine needs
-    starttime = "00:03:50,975"
-    endtime = "00:03:57,054"
+    starttime = "00:57:46,128"
+    endtime = "00:57:49,086"
     # set these to appropriate locations, eventually will be passed in from db
-    movieNames = ["An Ideal Husband 1947", "Dressed to Kill 1946", "The Last Time I Saw Paris 1954"]
+    movieNames = ["An Ideal Husband 1947"]
     directory = "media/"
     outfile = "static/outfile/"
     for movie in movieNames:
+        print(movie)
         videofileloc = directory + movie + ".mp4"
         srtfileloc = directory + movie + ".srt"
         gif_outfileloc = (outfile+"GIF_{}.gif").format(datetime.now().strftime("%H_%M_%S"))
         jpg_outfileloc = (outfile+"JPG_{}.jpg").format(datetime.now().strftime("%H_%M_%S"))
 
         getImage(starttime, videofileloc, jpg_outfileloc)
-        retcode = gifEngine(starttime, endtime, videofileloc, srtfileloc,  gif_outfileloc)
+        retcode = gifEngine(starttime, endtime, videofileloc, srtfileloc,  gif_outfileloc, width=480)
 
-        # The Last Time I Saw Paris.mp4 is renamed and should fail to be found.
-        # An Ideal Husband.srt is renamed and should fail to be found.
-        if movie == "An Ideal Husband 1947":
-            assert retcode != 0
-        elif movie == "Dressed to Kill 1946":
-            assert retcode == 0
-        elif movie == "The Last Time I Saw Paris 1954":
-            assert retcode != 0
-
+        print(retcode)
     # print("Uploading to giphy.com...")
 
     # giphyobj = Giphy(API_KEY)

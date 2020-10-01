@@ -13,6 +13,7 @@ import webbrowser  # used to open giphy.com URL after upload
 import os
 
 app = Flask(__name__)
+port = int(os.environ.get("PORT", 5000))
 
 db_username = os.getenv('QGIFr_AWS_USERNAME')
 db_password = os.getenv('QGIFr_AWS_PASSWORD')
@@ -155,12 +156,15 @@ def generateGIFpage():
             if not os.path.exists(outfile+"/"):
                 os.mkdir(outfile+"/")
             gif_outfileloc = (outfile + "/GIF_{}.gif").format(datetime.now().strftime("%H_%M_%S"))
-            retcode = gifEngine(starttime, endtime, videofileloc, strfileloc,  gif_outfileloc)
+            jpg_outfileloc = (outfile + "/JPG_{}.jpg").format(datetime.now().strftime("%H_%M_%S"))
+            getImage(starttime, videofileloc, jpg_outfileloc)
+            retcode = gifEngine(starttime, endtime, videofileloc, strfileloc, gif_outfileloc)
             if retcode == 0:
                 form = FileLocationForm(gifLocation=gif_outfileloc)
                 return render_template('generate.html', gif_outfileloc=gif_outfileloc[7:], form=form)
             else:
-                return render_template('error.html') # This needs to go to an error page of some kind, GIF was not created
+                form = FileLocationForm(gifLocation=jpg_outfileloc)
+                return render_template('generate.html', gif_outfileloc=jpg_outfileloc[7:], form=form) # This needs to go to an error page of some kind, GIF was not created
     return redirect(url_for('homepage'))
 
 
@@ -168,5 +172,5 @@ def generateGIFpage():
 # having to set Flask environment variables every time (ie. 'export FLASK_APP=app.py' 
 # command in bash).
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=port, debug=True)
 

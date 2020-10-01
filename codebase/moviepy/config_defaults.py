@@ -48,7 +48,5 @@ IMAGEMAGICK_BINARY
 
 """
 
-import os
-
-FFMPEG_BINARY = os.getenv('FFMPEG_BINARY', 'ffmpeg-imageio')
-IMAGEMAGICK_BINARY = os.getenv('IMAGEMAGICK_BINARY', r'C:\Program Files\ImageMagick-7.0.9-Q16\magick.exe')
+FFMPEG_BINARY = 'ffmpeg'
+IMAGEMAGICK_BINARY = '/usr/bin/convert'
