@@ -116,7 +116,7 @@ def quotepage():
             
             if quoteForms == []:
                 msg = 'Sorry, we couldn\'t find anything. Perhaps try searching again'
-                return render_template('quote.html', title='Quote', movieName='movieName', form=form, quoteRequest=quoteRequest, msg=msg)
+                return render_template('quote.html', title='Quote', movieName=movieName, form=form, quoteRequest=quoteRequest, msg=msg)
             return render_template('quote.html', title='Quote', movieName=movieName, form=form, quoteRequest=quoteRequest, quoteForms=quoteForms)
 
         # if form data under the names of 'movieName' and 'quote' were not both submitted, check to see if 
