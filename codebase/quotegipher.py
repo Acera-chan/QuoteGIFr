@@ -1,6 +1,7 @@
 # requires the installation of moviepy and imagemagick
 from moviepy.video.tools.subtitles import SubtitlesClip
 from moviepy.editor import TextClip, VideoFileClip, CompositeVideoClip
+from os import listdir, path, remove
 import io
 import logging
 import prolog
@@ -44,6 +45,15 @@ def getImage(timecode, videofileloc, outfileloc):
         retcode = errCode
 
     return(retcode)
+
+
+# Prunes file count in specified folder to <= desired size
+def pruneGIFs(folder, desired_size):
+    file_list = listdir(folder)
+
+    while len(file_list) > desired_size:
+        del_file = min(file_list, key=path.getctime)
+        remove(path.abspath(del_file))
 
 
 #  Class for parsing and manipulating text stored in an SRT format

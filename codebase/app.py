@@ -7,9 +7,9 @@ from forms import MovieForm, QuoteForm, SelectMovieForm, SelectQuoteForm, FileLo
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, and_
 from datetime import datetime  # used to create filename of gif in this context
-from quotegipher import gifEngine, getImage 
+from quotegipher import gifEngine, getImage, pruneGIFs
 from giphypop import Giphy  # necessary for uploading to giphy.com
-import webbrowser  # used to open giphy.com URL after upload
+import uuid
 import os
 
 app = Flask(__name__)
@@ -85,11 +85,11 @@ def homepage():
 @app.route("/quote", methods=["GET", "POST"])
 def quotepage():
 
-    # !IMPORTANT! 
+    # !IMPORTANT!
     # only allow access to the quotepage if the user selected a movie from "homepage" or they just searched for
     # a quote using "quotepage"
 
-    # if post data is submitted to this route, check it 
+    # if post data is submitted to this route, check it
     if request.method == 'POST':
 
         # check to see if form data under the name of 'movieName' and 'quote' was submitted
@@ -119,7 +119,7 @@ def quotepage():
                 return render_template('quote.html', title='Quote', movieName=movieName, form=form, quoteRequest=quoteRequest, msg=msg)
             return render_template('quote.html', title='Quote', movieName=movieName, form=form, quoteRequest=quoteRequest, quoteForms=quoteForms)
 
-        # if form data under the names of 'movieName' and 'quote' were not both submitted, check to see if 
+        # if form data under the names of 'movieName' and 'quote' were not both submitted, check to see if
         # just 'movieName' data was submitted (ie just came from "homepage")
         elif request.form.get('movieID'):
             movieID = request.form.get('movieID')
@@ -155,9 +155,14 @@ def generateGIFpage():
             outfile = "static/outfile"
             if not os.path.exists(outfile+"/"):
                 os.mkdir(outfile+"/")
-            gif_outfileloc = (outfile + "/GIF_{}.gif").format(datetime.now().strftime("%H_%M_%S"))
-            jpg_outfileloc = (outfile + "/JPG_{}.jpg").format(datetime.now().strftime("%H_%M_%S"))
+            # UUID being used to generate unique GIF names
+            gif_outfileloc = (outfile + "/GIF_{}.gif").format(uuid.uuid1())
+            jpg_outfileloc = (outfile + "/JPG_{}.jpg").format(uuid.uuid1())
+            # delete excess gifs (>500) (oldest first)
+            pruneGIFs(outfile, 500)
+            # create a still-image for testing purposes
             getImage(starttime, videofileloc, jpg_outfileloc)
+            # create the GIF and catch the return-code for error handling
             retcode = gifEngine(starttime, endtime, videofileloc, strfileloc, gif_outfileloc)
             if retcode == 0:
                 form = FileLocationForm(gifLocation=gif_outfileloc)
